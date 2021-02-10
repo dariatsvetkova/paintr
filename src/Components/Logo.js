@@ -1,6 +1,7 @@
 function Logo(props) {
   return (
     <svg
+      className="logo"
       width="240"
       height="60"
       viewBox="0 0 240 60"

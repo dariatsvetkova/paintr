@@ -138,8 +138,6 @@ class Generator extends React.Component {
       );
     });
 
-    console.log("generate is loading: ", this.state.isLoading);
-
     return (
       <section id="generate" className="generator">
         <div className="controls">
