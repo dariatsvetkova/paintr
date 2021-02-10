@@ -236,7 +236,7 @@ header .background img {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   border: 1px solid var(--PR-light-grey);
   border-radius: 8px;
 }
@@ -245,6 +245,7 @@ header .background img {
   margin: 1em 0;
   flex-grow: 0;
   flex-shrink: 0;
+  flex-basis: 3em;
 }
 
 .controls .large-button {
@@ -260,9 +261,11 @@ header .background img {
   flex-flow: column nowrap;
 }
 
+.user-colours > * {
+  flex-basis: 3em;
+}
+
 .user-colour {
-  width: 11.5em;
-  height: 3em;
   margin-bottom: 1em;
   border: 1px solid var(--PR-light-grey);
   border-radius: 8px;
@@ -285,13 +288,6 @@ header .background img {
 }
 
 .colour-prompt,
-.colour-input,
-.palette {
-  width: 11.5em;
-  flex-basis: 3em;
-}
-
-.colour-prompt,
 .colour-input div {
   display: flex;
   flex-flow: row nowrap;
@@ -303,6 +299,7 @@ header .background img {
 
 .colour-prompt > * {
   display: inline-block;
+  margin: 0.75em;
 }
 
 .colour-input label {
@@ -410,6 +407,10 @@ header .background img {
   stroke: var(--PR-white);
 }
 
+.mockup .hamburger {
+  display: none;
+}
+
 .mockup .menu-items {
   flex: 0 0 60%;
   display: flex;
@@ -441,7 +442,7 @@ header .background img {
 }
 
 .mockup .header .text {
-  flex: 0 0 350px;
+  flex: 0 0 38em;
 }
 
 .mockup .h1 {
@@ -555,6 +556,7 @@ footer {
   background: #e6e9e9;
   padding: 3em;
   display: flex;
+  flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
 }
@@ -566,7 +568,7 @@ footer .logo {
 footer > *,
 small > * {
   display: inline-block;
-  margin: 0 0.2em;
+  margin: 0 4px 20px 4px;
 }
 
 small a,
@@ -617,20 +619,26 @@ footer .social-icons > * {
   }
 
   .controls {
-    width: 50vw;
     flex-basis: min-content;
-    margin: 0 1em 2em 1em;
+    margin: 0 0.2em 2em 0.2em;
   }
 
   .controls > * {
-    flex-basis: 3.5em;
+    width: 100%;
+    flex-basis: 3em;
     margin: 1em 0 0 0;
+  }
+
+  .controls .buttons button {
+    width: 40px;
+    height: 40px;
   }
 
   .mockup {
     justify-self: flex-start;
     flex-basis: max-content;
     width: 80em;
+    margin: 0 0.2em 2em 0.2em;
   }
 
   @media screen and (max-width: 1075px) {
@@ -675,8 +683,75 @@ footer .social-icons > * {
           font-size: 16px;
         }
 
-        @media screen and(max-width: 600px) {
+        header .logo {
+          margin: 2em;
+        }
+
+        header .text {
+          margin: 0 2em 0 2em;
+        }
+
+        .how-to,
+        .generator {
+          padding: 5em 2em 3em 2em;
+        }
+
+        footer {
+          flex-direction: column;
+        }
+
+        @media screen and (max-width: 600px) {
+          .controls,
           .mockup {
+            align-self: stretch;
+          }
+
+          .mockup {
+            width: 100%;
+            height: max-content;
+            font-size: 0.57em;
+          }
+
+          .mockup .menu-items {
+            display: none;
+          }
+
+          .mockup .hamburger {
+            display: inline-block;
+            font-size: 2.5em;
+          }
+
+          .mockup .header {
+            height: max-content;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: center;
+          }
+
+          .mockup .image {
+            order: 1;
+          }
+
+          .mockup .header .text {
+            order: 2;
+            flex-basis: 100%;
+          }
+
+          .mockup .h1 {
+            font-size: 3em;
+          }
+
+          .mockup .h2 {
+            font-size: 2.25em;
+          }
+
+          .mockup .benefits {
+            flex-wrap: wrap;
+          }
+
+          .mockup .pillar {
+            height: auto;
           }
 
           @media screen and (max-width: 500px) {
@@ -699,9 +774,9 @@ footer .social-icons > * {
             header .background img {
               max-height: 40vh;
             }
-            .how-to,
-            .generator {
-              padding: 5em 2em 3em 2em;
+
+            .colour-input label {
+              font-size: 0.85em;
             }
           }
         }

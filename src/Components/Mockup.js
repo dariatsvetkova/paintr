@@ -1,4 +1,5 @@
 import AnimatedLogo from "./AnimatedLogo";
+import { IoMenu } from "react-icons/io5";
 
 function Mockup(props) {
   const { primary, accent1, accent2, white, light, dark } = props.colourSet;
@@ -26,6 +27,10 @@ function Mockup(props) {
                 stroke-linejoin="round"
               />
             </svg>
+
+            <div className="hamburger">
+              <IoMenu />
+            </div>
 
             <ul className="menu-items">
               <li>Home</li>

@@ -10,11 +10,9 @@ function Footer() {
     <footer>
       <Logo fill="#FFFFFF" />
       <small>
-        <span>&copy; </span>
         <a href="https://dariatsvetkova.ca/" rel="noreferrer" target="_blank">
-          Daria Tsvetkova
+          &copy; Daria Tsvetkova 2021
         </a>
-        <span> 2021</span>
       </small>
       <div className="social-icons">
         <FaFacebookSquare />
