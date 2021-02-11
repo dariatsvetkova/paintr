@@ -169,6 +169,9 @@ header .background {
   z-index: -1;
   justify-self: flex-end;
   align-self: flex-start;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 
 header .background img {
@@ -250,6 +253,7 @@ header .background img {
 
 .controls .large-button {
   margin-top: 0;
+  width: auto;
 }
 
 .controls .buttons {
@@ -372,6 +376,9 @@ header .background img {
   flex: 0 0 80em;
   border: 1px solid var(--PR-light-grey);
   font-size: 0.45em;
+}
+
+.mockup-inactive {
   background-color: var(--PR-dark-grey);
 }
 
@@ -388,7 +395,6 @@ header .background img {
 }
 
 .mockup .navbar {
-  background-color: var(--PR-white);
   width: 100%;
   padding: 1em 3em;
   display: flex;
@@ -397,13 +403,20 @@ header .background img {
   align-items: center;
 }
 
+.mockup-inactive .navbar {
+  background-color: var(--PR-white);
+}
+
 .mockup .demo-logo {
   width: 2.7em;
-  fill: var(--PR-black);
   cursor: pointer;
 }
 
-.mockup .demo-logo path {
+.mockup-inactive .demo-logo {
+  fill: var(--PR-black);
+}
+
+.mockup-inactive .demo-logo path {
   stroke: var(--PR-white);
 }
 
@@ -420,13 +433,14 @@ header .background img {
 
 .mockup .menu-items li {
   display: inline-block;
+  padding: 0.5em;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
 
-.mockup .menu-items li:hover,
-.mockup .menu-items li:focus,
-.mockup .menu-items li:first-of-type {
+.mockup-inactive .menu-items li:hover,
+.mockup-inactive .menu-items li:focus,
+.mockup-inactive .menu-items li:first-of-type {
   color: var(--PR-light-grey);
 }
 
@@ -434,11 +448,14 @@ header .background img {
   height: 254px;
   width: 100%;
   padding: 3em;
-  background-color: var(--PR-light-grey);
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
+}
+
+.mockup-inactive .header {
+  background-color: var(--PR-light-grey);
 }
 
 .mockup .header .text {
@@ -461,13 +478,17 @@ header .background img {
   height: 3em;
   margin: 1em 0;
   border-radius: 3.2em;
+  border: 2px solid transparent;
   font-weight: 600;
   font-size: 1.33em;
+}
+
+.mockup-inactive .button {
   background-color: var(--PR-dark-grey);
 }
 
-.mockup .button:hover,
-.mockup .button:focus {
+.mockup-inactive .button:hover,
+.mockup-inactive .button:focus {
   color: var(--PR-light-grey);
 }
 
@@ -476,22 +497,25 @@ header .background img {
   margin: 3em 5em;
 }
 
-.mockup .image .line {
+.mockup-inactive .image .line {
   stroke: var(--PR-black);
 }
 
-.mockup .image .circle {
+.mockup-inactive .image .circle {
   fill: var(--PR-dark-grey);
 }
 
-.mockup .image .triangle {
+.mockup-inactive .image .triangle {
   fill: #f5f6f6;
 }
 
 .mockup .section {
-  background: #f5f6f6;
   text-align: center;
   padding: 3em;
+}
+
+.mockup-inactive .section {
+  background: #f5f6f6;
 }
 
 .mockup .h2 {
@@ -511,39 +535,47 @@ header .background img {
   height: 20em;
   margin: 1.75em;
   padding: 2em;
+  box-shadow: 2px 2px 5px #c0c0c0;
+}
+
+.mockup-inactive .pillar {
   background: var(--PR-white);
-  box-shadow: 2px 2px 5px var(--PR-light-grey);
 }
 
 .mockup .pillar .icon {
   height: 25px;
 }
 
-.mockup .circle-icon,
-.mockup .triangle-icon {
+.mockup-inactive .circle-icon,
+.mockup-inactive .triangle-icon {
   fill: var(--PR-light-grey);
   stroke: var(--PR-black);
 }
 
-.mockup .waves-icon-back {
+.mockup-inactive .waves-icon-back {
   stroke: var(--PR-black);
 }
 
-.mockup .waves-icon-front-1 {
+.mockup-inactive .waves-icon-front-1 {
   stroke: var(--PR-light-grey);
 }
 
-.mockup .waves-icon-front-2 {
+.mockup-inactive .waves-icon-front-2 {
   stroke: var(--PR-dark-grey);
 }
 
-.pillar b {
+.pillar .benefit {
   font-size: 1.33em;
   font-weight: 600;
 }
 
 .pillar p {
   margin: 1.5em 0;
+}
+
+.pillar .a {
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .pillar p:last-of-type {
@@ -565,14 +597,14 @@ footer .logo {
   max-width: 10em;
 }
 
-footer > *,
-small > * {
+footer > * {
   display: inline-block;
   margin: 0 4px 20px 4px;
 }
 
 small a,
 small a:visited {
+  display: inline-block;
   font-weight: 700;
   color: transparent;
   background: linear-gradient(
@@ -675,7 +707,7 @@ footer .social-icons > * {
       }
 
       header .background img {
-        max-height: 60vh;
+        max-width: 60vw;
       }
 
       @media screen and (max-width: 700px) {

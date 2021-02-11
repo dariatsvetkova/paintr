@@ -8,7 +8,9 @@ import {
 function Footer() {
   return (
     <footer>
-      <Logo fill="#FFFFFF" />
+      <a href="#">
+        <Logo fill="#FFFFFF" />
+      </a>
       <small>
         <a href="https://dariatsvetkova.ca/" rel="noreferrer" target="_blank">
           &copy; Daria Tsvetkova 2021
