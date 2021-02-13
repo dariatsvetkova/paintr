@@ -14,6 +14,7 @@ import {
   IoCopyOutline,
 } from "react-icons/io5";
 import Mockup from "./Mockup";
+import ColourNames from "./ColourNames.json"; // From https://chir.ag/projects/ntc/ntc.js
 
 class Generator extends React.Component {
   constructor() {
@@ -39,13 +40,6 @@ class Generator extends React.Component {
     this.setState(
       {
         isLoading: true,
-        // ,
-        // primary: {},
-        // accent1: {},
-        // accent2: {},
-        // white: [],
-        // light: [],
-        // dark: [],
       },
       () => {
         let promise = generate(this.state.userColours);
@@ -76,15 +70,20 @@ class Generator extends React.Component {
 
   handleSubmit(event, input) {
     event.preventDefault();
-    let val = input,
+    let val = input.toUpperCase(),
       cols = this.state.userColours;
+    console.log("adding color - before match:", val);
+    console.log(ColourNames[val]);
 
     try {
-      if (val.match(/^#[0-9A-F]{3}$/)) {
+      if (ColourNames[val]) {
+        val = ColourNames[val]; // If a colour name was provided, match it with its hex value
+      } else if (val.match(/^(#|)[0-9A-F]{3}$/)) {
         val = val[0] + val[1] + val[1] + val[2] + val[2] + val[3] + val[3]; // Convert #rgb values to #rrggbb values
       }
-      if (val.match(/^#[0-9A-F]{6}$/)) {
-        val = hexToHsl(val);
+      if (val.match(/^(#|)[0-9A-F]{6}$/)) {
+        console.log("adding color: ", val);
+        val = val[0] === "#" ? hexToHsl(val) : hexToHsl("#" + val);
         !cols.some((col) => col.every((num, i) => num === val[i])) &&
           cols.push(val); // If the colour hasn't been added yet, add it to userColours
         this.setState({ userColours: cols });

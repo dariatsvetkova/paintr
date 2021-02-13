@@ -7,11 +7,7 @@ function ColoursForm(props) {
 
   const handleInput = (event) => {
     let val = event.target.value;
-
-    if (val.length > 0 && !val.match(/^#/)) {
-      val = "#" + val;
-    }
-    setInput(val.toUpperCase());
+    val.length > 0 && setInput(val);
   };
 
   return (
@@ -49,9 +45,7 @@ function ColoursForm(props) {
               <IoAdd />
             </button>
           </div>
-          <label for="new-colour-text">
-            try #FFB7C5 or cherry blossom pink
-          </label>
+          <label for="new-colour-text">try #77B5FE or French sky blue</label>
         </div>
       ) : (
         <div className="colour-prompt" onClick={() => setActive(true)}>
