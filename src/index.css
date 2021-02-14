@@ -5,7 +5,9 @@ html {
   scroll-behavior: smooth;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -24,7 +26,8 @@ h6 {
   margin: 0;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none outside none;
   padding-left: 0;
 }
@@ -34,7 +37,8 @@ li {
   padding-left: 0;
 }
 
-dd, dt {
+dd,
+dt {
   display: inline-block;
 }
 
@@ -48,6 +52,16 @@ button {
   border: none;
   padding: 0;
   background-color: transparent;
+}
+
+input,
+input:focus,
+input:active {
+  font-size: 100%;
+  font-family: inherit;
+  font-weight: inherit;
+  box-shadow: none;
+  border: 1px solid black;
 }
 
 img {

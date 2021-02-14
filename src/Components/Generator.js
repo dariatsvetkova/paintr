@@ -1,9 +1,7 @@
 import React from "react";
 import "../App.css";
 import generate from "./generate";
-// import hexToRgb from './hexToRgb';
 import hslToHex from "./hslToHex";
-import hexToHsl from "./hexToHsl";
 import UserColour from "./UserColour";
 import ColourForm from "./ColourForm";
 import Palette from "./Palette";
@@ -14,7 +12,6 @@ import {
   IoCopyOutline,
 } from "react-icons/io5";
 import Mockup from "./Mockup";
-import ColourNames from "./ColourNames.json"; // From https://chir.ag/projects/ntc/ntc.js
 
 class Generator extends React.Component {
   constructor() {
@@ -30,7 +27,7 @@ class Generator extends React.Component {
       dark: [],
     };
     this.handleGenerateClick = this.handleGenerateClick.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
   }
 
@@ -68,29 +65,11 @@ class Generator extends React.Component {
     );
   }
 
-  handleSubmit(event, input) {
-    event.preventDefault();
-    let val = input.toUpperCase(),
-      cols = this.state.userColours;
-    console.log("adding color - before match:", val);
-    console.log(ColourNames[val]);
-
-    try {
-      if (ColourNames[val]) {
-        val = ColourNames[val]; // If a colour name was provided, match it with its hex value
-      } else if (val.match(/^(#|)[0-9A-F]{3}$/)) {
-        val = val[0] + val[1] + val[1] + val[2] + val[2] + val[3] + val[3]; // Convert #rgb values to #rrggbb values
-      }
-      if (val.match(/^(#|)[0-9A-F]{6}$/)) {
-        console.log("adding color: ", val);
-        val = val[0] === "#" ? hexToHsl(val) : hexToHsl("#" + val);
-        !cols.some((col) => col.every((num, i) => num === val[i])) &&
-          cols.push(val); // If the colour hasn't been added yet, add it to userColours
-        this.setState({ userColours: cols });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  handleAdd(val) {
+    let cols = this.state.userColours;
+    !cols.some((col) => col.every((num, i) => num === val[i])) &&
+      cols.push(val); // If the colour hasn't been added yet, add it to userColours
+    this.setState({ userColours: cols });
   }
 
   handleRemove(ind) {
@@ -148,7 +127,7 @@ class Generator extends React.Component {
             {UserColours}
 
             {this.state.userColours.length <= 1 && (
-              <ColourForm handleSubmit={this.handleSubmit} />
+              <ColourForm handleAdd={this.handleAdd} />
             )}
           </div>
 
