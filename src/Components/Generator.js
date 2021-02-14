@@ -19,9 +19,9 @@ class Generator extends React.Component {
     this.state = {
       isLoading: false,
       userColours: [],
-      primary: {},
-      accent1: {},
-      accent2: {},
+      primary: { colour: [], pairs: [] },
+      accent1: { colour: [], pairs: [] },
+      accent2: { colour: [], pairs: [] },
       white: [],
       light: [],
       dark: [],
@@ -80,9 +80,9 @@ class Generator extends React.Component {
 
   render() {
     const colourSet = {
-      primary: [],
-      accent1: [],
-      accent2: [],
+      primary: {},
+      accent1: {},
+      accent2: {},
       white: "",
       light: "",
       dark: "",
@@ -93,10 +93,12 @@ class Generator extends React.Component {
         colourSet[key] =
           (key === "primary" || key === "accent1" || key === "accent2") &&
           this.state[key].colour
-            ? [
-                hslToHex(this.state[key].colour),
-                hslToHex(this.state[key].foregrds[0]),
-              ]
+            ? {
+                colour: hslToHex(this.state[key].colour),
+                pairs: this.state[key].pairs.map((col) => {
+                  return hslToHex(col);
+                }),
+              }
             : this.state[key].length > 0
             ? hslToHex(this.state[key])
             : [];

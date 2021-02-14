@@ -15,16 +15,19 @@ function Mockup(props) {
     return el === "Home" ? (
       <li
         style={{
-          color: accent1[0],
-          backgroundColor:
-            accent1[1] === white || accent1[2] === white ? white : accent1[1],
+          color: accent1.pairs.includes(white)
+            ? accent1.colour
+            : accent1.pairs[0],
+          backgroundColor: accent1.pairs.includes(white)
+            ? white
+            : accent1.colour,
         }}
       >
         {el}
       </li>
     ) : (
       <li
-        onMouseOver={(event) => hover(event, accent1[0])}
+        onMouseOver={(event) => hover(event, accent1.colour)}
         onMouseLeave={(event) => hover(event, dark)}
       >
         {el}
@@ -33,19 +36,19 @@ function Mockup(props) {
   });
 
   const linkStyles = {
-    color: accent1.includes(white)
-      ? accent1[0]
-      : accent2.includes(white)
-      ? accent2[0]
-      : primary.includes(white)
-      ? primary[0]
+    color: accent1.pairs.includes(white)
+      ? accent1.colour
+      : accent2.pairs.length > 0 && accent2.pairs.includes(white)
+      ? accent2.colour
+      : primary.pairs.includes(white)
+      ? primary.colour
       : dark,
   };
 
   return (
-    <div className={`mockup ${accent1.length > 0 ? "" : "mockup-inactive"}`}>
+    <div className={`mockup ${accent1.colour ? "" : "mockup-inactive"}`}>
       {props.isLoading ? (
-        <AnimatedLogo primary={primary[0]} />
+        <AnimatedLogo primary={primary.colour} />
       ) : (
         <div className="page" style={{ color: dark, backgroundColor: light }}>
           <div className="navbar" style={{ background: white }}>
@@ -74,24 +77,24 @@ function Mockup(props) {
             <ul className="menu-items">{menuItems}</ul>
           </div>
 
-          <div className="header" style={{ backgroundColor: primary[0] }}>
-            <div className="text" style={{ color: primary[1] }}>
+          <div className="header" style={{ backgroundColor: primary.colour }}>
+            <div className="text" style={{ color: primary.pairs[0] }}>
               <p className="h1">Transform your brand with color</p>
               <p className="subheading">Choose from as many as 360 hues</p>
               <button
                 className="button"
                 style={{
-                  backgroundColor: accent1[0],
-                  color: accent1[1],
+                  backgroundColor: accent1.colour,
+                  color: accent1.pairs[0],
                 }}
                 onMouseOver={(event) =>
-                  accent1.length > 2
-                    ? hover(event, accent1[2])
-                    : hover(event, accent1[1], "borderColor")
+                  accent1.pairs.length > 1
+                    ? hover(event, accent1.pairs[1])
+                    : hover(event, accent1.pairs[0], "borderColor")
                 }
                 onMouseLeave={(event) =>
-                  accent1.length > 2
-                    ? hover(event, accent1[1])
+                  accent1.pairs.length > 2
+                    ? hover(event, accent1.pairs[0])
                     : hover(event, "transparent", "borderColor")
                 }
               >
@@ -116,14 +119,14 @@ function Mockup(props) {
               />
               <circle
                 className="circle"
-                fill={accent1[0]}
+                fill={accent1.colour}
                 cx="123"
                 cy="50"
                 r="50"
               />
               <path
                 className="triangle"
-                fill={accent2[0] || light}
+                fill={accent2.colour || light}
                 d="M209 113L134 156.301V69.6987L209 113Z"
               />
               <path
@@ -156,7 +159,7 @@ function Mockup(props) {
                   >
                     <circle
                       className="circle-icon"
-                      fill={primary[0]}
+                      fill={primary.colour}
                       stroke={dark}
                       cx="12.5"
                       cy="12.5"
@@ -208,7 +211,7 @@ function Mockup(props) {
                     <path
                       className="waves-icon-front-2"
                       d="M5.1366 18.9565C5.1366 18.9565 8.7366 16.7065 11.4366 16.7065C14.1366 16.7065 15.4866 17.1565 18.6366 18.9565C21.7866 20.7565 21.7866 21.2065 25.3866 21.2065C28.9866 21.2065 32.1366 18.9565 32.1366 18.9565"
-                      stroke={accent1[0]}
+                      stroke={accent1.colour}
                       stroke-width="3"
                       stroke-linecap="square"
                       stroke-linejoin="round"
@@ -216,7 +219,7 @@ function Mockup(props) {
                     <path
                       className="waves-icon-front-1"
                       d="M5 6.25C5 6.25 8.6 4 11.3 4C14 4 15.35 4.45 18.5 6.25C21.65 8.05 21.65 8.5 25.25 8.5C28.85 8.5 32 6.25 32 6.25"
-                      stroke={primary[0]}
+                      stroke={primary.colour}
                       stroke-width="3"
                       stroke-linecap="square"
                       stroke-linejoin="round"
@@ -246,7 +249,7 @@ function Mockup(props) {
                     <path
                       className="triangle-icon"
                       d="M1.25 2.40673L17 11.5L1.25 20.5933V2.40673Z"
-                      fill={primary[0]}
+                      fill={primary.colour}
                       stroke={dark}
                       stroke-width="2"
                     />
