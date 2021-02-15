@@ -19,6 +19,7 @@ class Generator extends React.Component {
     this.state = {
       isLoading: false,
       userColours: [],
+      setId: 0,
       primary: { colour: [], pairs: [] },
       accent1: { colour: [], pairs: [] },
       accent2: { colour: [], pairs: [] },
@@ -31,6 +32,8 @@ class Generator extends React.Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
     this.handleShuffle = this.handleShuffle.bind(this);
+    this.handleBack = this.handleBack.bind(this);
+    this.handleForward = this.handleForward.bind(this);
   }
 
   // Input handlers:
@@ -39,7 +42,6 @@ class Generator extends React.Component {
     this.setState(
       {
         isLoading: true,
-        darkMode: false,
         shuffleCount: 0,
       },
       () => {
@@ -50,16 +52,24 @@ class Generator extends React.Component {
             console.log("promise result: ", result);
             return result
               ? this.setState(
-                  {
-                    primary: result.primary,
-                    accent1: result.accent1,
-                    accent2: result.accent2,
-                    white: result.white,
-                    light: result.light,
-                    dark: result.dark,
+                  (prevState) => {
+                    return {
+                      setId: prevState.setId + 1,
+                      primary: result.primary,
+                      accent1: result.accent1,
+                      accent2: result.accent2,
+                      white: result.white,
+                      light: result.light,
+                      dark: result.dark,
+                    };
                   },
-                  () =>
-                    setTimeout(() => this.setState({ isLoading: false }), 3000)
+                  () => {
+                    sessionStorage.setItem(
+                      `colourSet${this.state.setId}`,
+                      JSON.stringify(result)
+                    );
+                    setTimeout(() => this.setState({ isLoading: false }), 3000);
+                  }
                 )
               : this.handleGenerateClick();
           },
@@ -143,6 +153,29 @@ class Generator extends React.Component {
     });
   }
 
+  handleBack() {
+    let id = this.state.setId - 1,
+      prevSet = sessionStorage.getItem(`colourSet${id}`);
+    prevSet = JSON.parse(prevSet);
+
+    this.setState(
+      {
+        isLoading: true,
+        setId: id,
+        primary: prevSet.primary,
+        accent1: prevSet.accent1,
+        accent2: prevSet.accent2,
+        white: prevSet.white,
+        light: prevSet.light,
+        dark: prevSet.dark,
+        shuffleCount: 0,
+      },
+      () => setTimeout(() => this.setState({ isLoading: false }), 3000)
+    );
+  }
+
+  handleForward() {}
+
   render() {
     const colourSet = {
       primary: {},
@@ -206,10 +239,10 @@ class Generator extends React.Component {
             <button onClick={this.handleShuffle}>
               <IoShuffle />
             </button>
-            <button onClick={this.back}>
+            <button onClick={this.handleBack} disabled={this.state.setId < 2}>
               <IoReturnDownBack />
             </button>
-            <button onClick={this.forward}>
+            <button onClick={this.handleForward}>
               <IoReturnUpForward />
             </button>
             <button onClick={this.copy}>
@@ -218,11 +251,7 @@ class Generator extends React.Component {
           </div>
         </div>
 
-        <Mockup
-          colourSet={colourSet}
-          isLoading={this.state.isLoading}
-          darkMode={this.state.darkMode}
-        />
+        <Mockup colourSet={colourSet} isLoading={this.state.isLoading} />
       </section>
     );
   }

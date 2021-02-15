@@ -96,6 +96,7 @@ button:active {
 
 button:disabled {
   color: var(--PR-light-grey);
+  cursor: not-allowed;
 }
 
 .large-button {
@@ -377,6 +378,12 @@ header .background img {
 .buttons button:hover,
 .buttons button:focus {
   border-width: 2px;
+}
+
+.buttons button:disabled,
+.buttons button:disabled:hover,
+.buttons button:disabled:focus {
+  border: 1px solid var(--PR-light-grey);
 }
 
 /* - Mockup - */
