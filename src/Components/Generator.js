@@ -25,10 +25,12 @@ class Generator extends React.Component {
       white: [],
       light: [],
       dark: [],
+      shuffleCount: 0,
     };
     this.handleGenerateClick = this.handleGenerateClick.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
+    this.handleShuffle = this.handleShuffle.bind(this);
   }
 
   // Input handlers:
@@ -37,6 +39,8 @@ class Generator extends React.Component {
     this.setState(
       {
         isLoading: true,
+        darkMode: false,
+        shuffleCount: 0,
       },
       () => {
         let promise = generate(this.state.userColours);
@@ -76,6 +80,67 @@ class Generator extends React.Component {
     let newCols = this.state.userColours;
     newCols.splice(ind, 1);
     return this.setState({ userColours: newCols });
+  }
+
+  handleShuffle() {
+    const { primary, accent1, accent2, white, dark } = this.state;
+    let newColourSet =
+      accent2.colour.length > 0
+        ? [primary, accent1, accent2, white, dark]
+        : [primary, accent1, white, dark];
+
+    switch (this.state.shuffleCount) {
+      case 0:
+      case 2:
+        // Swap white and dark colours (i.e. dark mode):
+        let a = newColourSet.length - 2,
+          b = newColourSet.length - 1;
+        [newColourSet[a], newColourSet[b]] = [newColourSet[b], newColourSet[a]];
+
+        // If the new primary colour has more than one pair, switch to the other pair for dark mode:
+        [
+          newColourSet[0].pairs[0],
+          newColourSet[0].pairs[newColourSet[0].pairs.length - 1],
+        ] = [
+          newColourSet[0].pairs[newColourSet[0].pairs.length - 1],
+          newColourSet[0].pairs[0],
+        ];
+        break;
+
+      case 1:
+        // Swap primary and accent1:
+        [newColourSet[0], newColourSet[1]] = [newColourSet[1], newColourSet[0]];
+        break;
+
+      case 3:
+        // If there is accent2, swap it with accent1; if not, swap primary and accent1 again:
+        [
+          newColourSet[newColourSet.length - 4],
+          newColourSet[newColourSet.length - 3],
+        ] = [
+          newColourSet[newColourSet.length - 3],
+          newColourSet[newColourSet.length - 4],
+        ];
+        break;
+
+      default:
+        return null;
+    }
+
+    this.setState((prevState) => {
+      return {
+        primary: newColourSet[0],
+        accent1: newColourSet[1],
+        accent2:
+          accent2.colour.length > 0
+            ? newColourSet[2]
+            : { colour: [], pairs: [] },
+        white: newColourSet[newColourSet.length - 2],
+        dark: newColourSet[newColourSet.length - 1],
+        shuffleCount:
+          prevState.shuffleCount === 3 ? 0 : prevState.shuffleCount + 1,
+      };
+    });
   }
 
   render() {
@@ -133,10 +198,12 @@ class Generator extends React.Component {
             )}
           </div>
 
-          {this.state.primary.colour && <Palette colourSet={colourSet} />}
+          {this.state.primary.colour.length > 0 && (
+            <Palette colourSet={colourSet} />
+          )}
 
           <div className="buttons">
-            <button onClick={this.mixup}>
+            <button onClick={this.handleShuffle}>
               <IoShuffle />
             </button>
             <button onClick={this.back}>
@@ -151,7 +218,11 @@ class Generator extends React.Component {
           </div>
         </div>
 
-        <Mockup colourSet={colourSet} isLoading={this.state.isLoading} />
+        <Mockup
+          colourSet={colourSet}
+          isLoading={this.state.isLoading}
+          darkMode={this.state.darkMode}
+        />
       </section>
     );
   }

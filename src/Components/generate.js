@@ -462,8 +462,10 @@ function validateScheme(p, a1, a2, w, l, d, userColours) {
       pairs: [],
     };
 
-    neutrals.forEach((neut) => {
-      checkContrast(col, neut) < 1 / 4.5 && colourObj.pairs.push(neut);
+    neutrals.forEach((neut, i) => {
+      i !== 1 &&
+        checkContrast(col, neut) < 1 / 4.5 &&
+        colourObj.pairs.push(neut); // Add white and dark if they meet contrast requirements
     });
 
     return colourObj;
@@ -491,7 +493,7 @@ function validateScheme(p, a1, a2, w, l, d, userColours) {
     return {
       primary: core[0],
       accent1: core[1],
-      accent2: core[2] ? core[2] : {},
+      accent2: core[2] ? core[2] : { colour: [], pairs: [] },
       white: neutrals[0],
       light: neutrals[1],
       dark: neutrals[2],

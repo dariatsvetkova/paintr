@@ -4,6 +4,9 @@ import { IoMenu } from "react-icons/io5";
 function Mockup(props) {
   const { primary, accent1, accent2, white, light, dark } = props.colourSet;
 
+  // If the value of "dark" colour is greater than "white" colour, it means the colours have been swapped and we're in dark mode:
+  const darkMode = parseInt(dark.slice(1), 16) > parseInt(white.slice(1), 16);
+
   const hover = (e, col, prop) => {
     const el = e.target;
     prop = prop || "color";
@@ -27,6 +30,7 @@ function Mockup(props) {
       </li>
     ) : (
       <li
+        style={{ color: dark }}
         onMouseOver={(event) => hover(event, accent1.colour)}
         onMouseLeave={(event) => hover(event, dark)}
       >
@@ -35,14 +39,30 @@ function Mockup(props) {
     );
   });
 
-  const linkStyles = {
-    color: accent1.pairs.includes(white)
-      ? accent1.colour
-      : accent2.pairs.length > 0 && accent2.pairs.includes(white)
-      ? accent2.colour
-      : primary.pairs.includes(white)
-      ? primary.colour
-      : dark,
+  const linkStyles = darkMode
+    ? {
+        color: accent1.pairs.includes(light)
+          ? accent1.colour
+          : accent2.pairs.length > 0 && accent2.pairs.includes(light)
+          ? accent2.colour
+          : primary.pairs.includes(light)
+          ? primary.colour
+          : white,
+      }
+    : {
+        color: accent1.pairs.includes(white)
+          ? accent1.colour
+          : accent2.pairs.length > 0 && accent2.pairs.includes(white)
+          ? accent2.colour
+          : primary.pairs.includes(white)
+          ? primary.colour
+          : dark,
+      };
+
+  const pillarStyle = {
+    color: `${darkMode ? white : dark}`,
+    backgroundColor: `${darkMode ? light : white}`,
+    boxShadow: `2px 2px 5px ${darkMode ? "#7c7c7c" : "#c0c0c0"}`,
   };
 
   return (
@@ -50,7 +70,13 @@ function Mockup(props) {
       {props.isLoading ? (
         <AnimatedLogo primary={primary.colour} />
       ) : (
-        <div className="page" style={{ color: dark, backgroundColor: light }}>
+        <div
+          className="page"
+          style={{
+            color: dark,
+            backgroundColor: `${darkMode ? white : light}`,
+          }}
+        >
           <div className="navbar" style={{ background: white }}>
             <svg
               className="demo-logo"
@@ -88,14 +114,10 @@ function Mockup(props) {
                   color: accent1.pairs[0],
                 }}
                 onMouseOver={(event) =>
-                  accent1.pairs.length > 1
-                    ? hover(event, accent1.pairs[1])
-                    : hover(event, accent1.pairs[0], "borderColor")
+                  hover(event, accent1.pairs[0], "borderColor")
                 }
                 onMouseLeave={(event) =>
-                  accent1.pairs.length > 2
-                    ? hover(event, accent1.pairs[0])
-                    : hover(event, "transparent", "borderColor")
+                  hover(event, "transparent", "borderColor")
                 }
               >
                 Find my colors!
@@ -143,12 +165,7 @@ function Mockup(props) {
           <div className="section">
             <p className="h2">Why use color</p>
             <ul className="benefits">
-              <li
-                className="pillar"
-                style={{
-                  backgroundColor: white,
-                }}
-              >
+              <li className="pillar" style={pillarStyle}>
                 <div className="icon">
                   <svg
                     width="25"
@@ -160,7 +177,7 @@ function Mockup(props) {
                     <circle
                       className="circle-icon"
                       fill={primary.colour}
-                      stroke={dark}
+                      stroke={`${darkMode ? white : dark}`}
                       cx="12.5"
                       cy="12.5"
                       r="11.5"
@@ -178,12 +195,7 @@ function Mockup(props) {
                   grayscale.
                 </p>
               </li>
-              <li
-                className="pillar"
-                style={{
-                  backgroundColor: white,
-                }}
-              >
+              <li className="pillar" style={pillarStyle}>
                 <div className="icon">
                   <svg
                     width="38"
@@ -195,7 +207,7 @@ function Mockup(props) {
                     <path
                       className="waves-icon-back"
                       d="M5.1366 18.9565C5.1366 18.9565 8.7366 16.7065 11.4366 16.7065C14.1366 16.7065 15.4866 17.1565 18.6366 18.9565C21.7866 20.7565 21.7866 21.2065 25.3866 21.2065C28.9866 21.2065 32.1366 18.9565 32.1366 18.9565"
-                      stroke={dark}
+                      stroke={`${darkMode ? white : dark}`}
                       stroke-width="7"
                       stroke-linecap="square"
                       stroke-linejoin="round"
@@ -203,7 +215,7 @@ function Mockup(props) {
                     <path
                       className="waves-icon-back"
                       d="M5 6.25C5 6.25 8.6 4 11.3 4C14 4 15.35 4.45 18.5 6.25C21.65 8.05 21.65 8.5 25.25 8.5C28.85 8.5 32 6.25 32 6.25"
-                      stroke={dark}
+                      stroke={`${darkMode ? white : dark}`}
                       stroke-width="7"
                       stroke-linecap="square"
                       stroke-linejoin="round"
@@ -237,7 +249,7 @@ function Mockup(props) {
                   snap judgements.
                 </p>
               </li>
-              <li className="pillar" style={{ backgroundColor: white }}>
+              <li className="pillar" style={pillarStyle}>
                 <div className="icon">
                   <svg
                     width="19"
@@ -250,7 +262,7 @@ function Mockup(props) {
                       className="triangle-icon"
                       d="M1.25 2.40673L17 11.5L1.25 20.5933V2.40673Z"
                       fill={primary.colour}
-                      stroke={dark}
+                      stroke={`${darkMode ? white : dark}`}
                       stroke-width="2"
                     />
                   </svg>

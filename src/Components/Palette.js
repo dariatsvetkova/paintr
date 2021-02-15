@@ -13,7 +13,7 @@ function Palette(props) {
         style={{ color: `${accent1[1]}`, backgroundColor: `${accent1.colour}` }}
       ></div>
 
-      {accent2.length > 0 && (
+      {accent2.colour && (
         <div
           className="colour accent2"
           style={{
