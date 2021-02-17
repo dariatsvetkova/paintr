@@ -66,7 +66,9 @@ function Mockup(props) {
   };
 
   return (
-    <div className={`mockup ${accent1.colour ? "" : "mockup-inactive"}`}>
+    <div
+      className={`mockup ${accent1.colour.length > 0 ? "" : "mockup-inactive"}`}
+    >
       {props.isLoading ? (
         <AnimatedLogo primary={primary.colour} />
       ) : (
@@ -148,7 +150,7 @@ function Mockup(props) {
               />
               <path
                 className="triangle"
-                fill={accent2.colour || light}
+                fill={accent2.colour.length > 0 ? accent2.colour : light}
                 d="M209 113L134 156.301V69.6987L209 113Z"
               />
               <path

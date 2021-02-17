@@ -11,6 +11,7 @@ import {
   IoReturnUpForward,
   IoCopyOutline,
 } from "react-icons/io5";
+import CssPopup from "./CssPopup";
 import Mockup from "./Mockup";
 
 class Generator extends React.Component {
@@ -27,12 +28,14 @@ class Generator extends React.Component {
       light: [],
       dark: [],
       shuffleCount: 0,
+      showCss: false,
     };
     this.handleGenerateClick = this.handleGenerateClick.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
     this.handleShuffle = this.handleShuffle.bind(this);
     this.handleBackForward = this.handleBackForward.bind(this);
+    this.handleCopy = this.handleCopy.bind(this);
   }
 
   // Input handlers:
@@ -48,7 +51,6 @@ class Generator extends React.Component {
 
         promise.then(
           (result) => {
-            console.log("promise result: ", result);
             return result
               ? this.setState(
                   (prevState) => {
@@ -71,10 +73,8 @@ class Generator extends React.Component {
 
                     // Make sure that current colour set is the last one in session storage:
                     let keys = Object.keys(sessionStorage);
-                    console.log("keys: ", keys);
                     for (let k of keys) {
                       k.slice(k.length - 1) > this.state.setId &&
-                        console.log(sessionStorage.removeItem(k.toString())) &&
                         sessionStorage.removeItem(k.toString());
                     }
 
@@ -94,7 +94,7 @@ class Generator extends React.Component {
     let cols = this.state.userColours;
     !cols.some((col) => col.every((num, i) => num === val[i])) &&
       cols.push(val); // If the colour hasn't been added yet, add it to userColours
-    this.setState({ userColours: cols });
+    return this.setState({ userColours: cols });
   }
 
   handleRemove(ind) {
@@ -148,7 +148,7 @@ class Generator extends React.Component {
         return null;
     }
 
-    this.setState((prevState) => {
+    return this.setState((prevState) => {
       return {
         primary: newColourSet[0],
         accent1: newColourSet[1],
@@ -168,7 +168,7 @@ class Generator extends React.Component {
     let updSet = sessionStorage.getItem(`colourSet${id}`);
     updSet = JSON.parse(updSet);
 
-    this.setState(
+    return this.setState(
       {
         isLoading: true,
         setId: id,
@@ -182,6 +182,12 @@ class Generator extends React.Component {
       },
       () => setTimeout(() => this.setState({ isLoading: false }), 3000)
     );
+  }
+
+  handleCopy() {
+    return this.setState((prevState) => {
+      return { showCss: !prevState.showCss };
+    });
   }
 
   render() {
@@ -198,7 +204,7 @@ class Generator extends React.Component {
       if (Object.prototype.hasOwnProperty.call(colourSet, key)) {
         colourSet[key] =
           (key === "primary" || key === "accent1" || key === "accent2") &&
-          this.state[key].colour
+          this.state[key].colour.length > 0
             ? {
                 colour: hslToHex(this.state[key].colour),
                 pairs: this.state[key].pairs.map((col) => {
@@ -207,11 +213,9 @@ class Generator extends React.Component {
               }
             : this.state[key].length > 0
             ? hslToHex(this.state[key])
-            : [];
+            : this.state[key];
       }
     }
-
-    console.log("colourSet: ", colourSet);
 
     const UserColours = this.state.userColours.map((col, i) => {
       return (
@@ -262,11 +266,15 @@ class Generator extends React.Component {
             >
               <IoReturnUpForward />
             </button>
-            <button onClick={this.copy}>
+            <button onClick={this.handleCopy}>
               <IoCopyOutline />
             </button>
           </div>
         </div>
+
+        {this.state.showCss && (
+          <CssPopup colourSet={colourSet} handleCopy={this.handleCopy} />
+        )}
 
         <Mockup colourSet={colourSet} isLoading={this.state.isLoading} />
       </section>

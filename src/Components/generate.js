@@ -328,7 +328,7 @@ function generate(userColours) {
         : [
             primary[0],
             Math.floor(Math.random() * (8 - 2 + 1)) + 2,
-            Math.floor(Math.random() * (95 - 85 + 1)) + 85,
+            Math.floor(Math.random() * (97 - 93 + 1)) + 93,
           ];
 
     dark =
