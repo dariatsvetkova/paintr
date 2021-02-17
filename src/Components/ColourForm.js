@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import namedColors from "color-name-list"; // https://github.com/meodai/color-names
 import { IoAdd } from "react-icons/io5";
-import ColourNames from "./ColourNames.json"; // From https://github.com/meodai/color-names/blob/master/src/colornames.csv
 import hexToHsl from "./hexToHsl";
 
 function ColoursForm(props) {
@@ -16,17 +16,26 @@ function ColoursForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let val = input.toUpperCase();
-    if (ColourNames[val]) {
-      val = ColourNames[val]; // If a colour name was provided, replace it with its hex value
+    let val = input;
+
+    // If a colour name was provided, replace it with its hex value:
+    if (val.match(/^[a-z]+$/i)) {
+      val = val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
+      let test = namedColors.find((color) => color.name === val);
+      if (test) {
+        val = test.hex;
+      }
     }
+
+    val = val.charAt(0) === "#" ? val.toUpperCase() : "#" + val.toUpperCase();
+
     if (val.match(/^(#|)[0-9A-F]{3}$/)) {
       val = val[0] + val[1] + val[1] + val[2] + val[2] + val[3] + val[3]; // Convert #rgb values to #rrggbb values
     }
 
     try {
       if (val.match(/^(#|)[0-9A-F]{6}$/)) {
-        val = val[0] === "#" ? hexToHsl(val) : hexToHsl("#" + val);
+        val = hexToHsl(val);
         props.handleAdd(val);
         setActive(false);
         setInput("");
@@ -63,11 +72,7 @@ function ColoursForm(props) {
       ) : (
         <div className="colour-prompt" onClick={() => setActive(true)}>
           <p>Add a color</p>
-          <button
-            onClick={() => {
-              console.log("button clicked");
-            }}
-          >
+          <button>
             <IoAdd />
           </button>
         </div>
