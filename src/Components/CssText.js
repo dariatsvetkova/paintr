@@ -1,4 +1,9 @@
+import React, { useState } from "react";
+import CopyButton from "./CopyButton";
+
 function CssText(props) {
+  const [copySuccess, setCopySuccess] = useState(false);
+
   const { primary, accent1, accent2, white, light, dark } = props.colourSet;
 
   // If the value of "dark" colour is greater than "white" colour, it means the colours have been swapped and we're in dark mode:
@@ -16,7 +21,7 @@ function CssText(props) {
         --Paintr-primary: ${primary.colour};
         --Paintr-primary-text: ${primary.pairs[0]};
         --Paintr-accent1: ${accent1.colour};
-        --Paintr-accent1-text: ${accent2.pairs[0]};
+        --Paintr-accent1-text: ${accent1.pairs[0]};
         ${
           accent2.colour.length > 0
             ? `--Paintr-accent2: ${accent2.colour};`
@@ -306,17 +311,28 @@ function CssText(props) {
     }`;
 
   return (
-    <textarea
-      id="popup-css-text"
-      value={text}
-      data-clipboard-target="#popup-css-text"
-      rows="10"
-      readOnly={true}
-      autoComplete="off"
-      autoCorrect="off"
-      autoCapitalize="off"
-      spellCheck={false}
-    />
+    <>
+      <textarea
+        id="popup-css-text"
+        value={text}
+        data-clipboard-target="#popup-css-text"
+        readOnly={true}
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck={false}
+      />
+      <div className="popup-btn-container">
+        <CopyButton
+          id="popup-css-text"
+          copyData={props.copyData}
+          callback={setCopySuccess}
+        />
+        {copySuccess && (
+          <p className="popup-copy-success">Copied to clipboard</p>
+        )}
+      </div>
+    </>
   );
 }
 

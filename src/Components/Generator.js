@@ -201,7 +201,7 @@ class Generator extends React.Component {
     };
 
     for (let key in colourSet) {
-      if (Object.prototype.hasOwnProperty.call(colourSet, key)) {
+      if (colourSet.hasOwnProperty(key)) {
         colourSet[key] =
           (key === "primary" || key === "accent1" || key === "accent2") &&
           this.state[key].colour.length > 0

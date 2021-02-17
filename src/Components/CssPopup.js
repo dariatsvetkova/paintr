@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import ValueText from "./ValueText";
 import CssText from "./CssText";
-import { IoClose, IoCopyOutline } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 
 function CssPopup(props) {
   const [activeTab, setActiveTab] = useState("values");
@@ -19,12 +20,35 @@ function CssPopup(props) {
     return () => document.removeEventListener("click", handleClose, false);
   });
 
-  const { primary, accent1, accent2, white, light, dark } = props.colourSet;
-
-  const copyData = (e) => {
+  const copyData = (e, id, callback) => {
     e.preventDefault();
-    console.log("copying data");
+    let el = document.getElementById(id);
+    navigator.clipboard.writeText(el.value).then(callback());
   };
+
+  let valueList = [];
+
+  for (let key in props.colourSet) {
+    if (props.colourSet.hasOwnProperty(key)) {
+      (key === "primary" || key === "accent1" || key === "accent2") &&
+      props.colourSet[key].colour.length > 0
+        ? valueList.push(
+            <ValueText
+              col={props.colourSet[key].colour}
+              id={key}
+              copyData={copyData}
+            />
+          )
+        : (key === "white" || key === "light" || key === "dark") &&
+          valueList.push(
+            <ValueText
+              col={props.colourSet[key]}
+              id={key}
+              copyData={copyData}
+            />
+          );
+    }
+  }
 
   return (
     <section className="popup-card">
@@ -58,155 +82,15 @@ function CssPopup(props) {
 
       {activeTab === "values" && (
         <div className="popup-values">
-          <form>
-            <div className="popup-values-line">
-              <div
-                className="rect"
-                style={{ backgroundColor: `${primary.colour}` }}
-              ></div>
-              <label for="popup-primary">Primary color:</label>
-              <input
-                id="popup-primary"
-                value={primary.colour}
-                size="8"
-                data-clipboard-target="#popup-primary"
-                rows="1"
-                readOnly={true}
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck={false}
-              />
-              <button onClick={copyData}>
-                <IoCopyOutline />
-              </button>
-            </div>
-
-            <div className="popup-values-line">
-              <div
-                className="rect"
-                style={{ backgroundColor: `${accent1.colour}` }}
-              ></div>
-              <label for="popup-accent1">
-                {`Accent color${accent2.colour.length > 0 ? " 1" : ""}:`}
-              </label>
-              <input
-                id="popup-accent1"
-                value={accent1.colour}
-                size="8"
-                data-clipboard-target="#popup-accent1"
-                readOnly={true}
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck={false}
-              />
-              <button onClick={copyData}>
-                <IoCopyOutline />
-              </button>
-            </div>
-
-            {accent2.colour.length > 0 && (
-              <div className="popup-values-line">
-                <div
-                  className="rect"
-                  style={{ backgroundColor: `${accent2.colour}` }}
-                ></div>
-                <label for="popup-accent2">Accent color 2:</label>
-                <input
-                  id="popup-accent2"
-                  value={accent2.colour}
-                  size="8"
-                  data-clipboard-target="#popup-accent2"
-                  readOnly={true}
-                  autoComplete="off"
-                  autoCorrect="off"
-                  autoCapitalize="off"
-                  spellCheck={false}
-                />
-                <button onClick={copyData}>
-                  <IoCopyOutline />
-                </button>
-              </div>
-            )}
-
-            <div className="popup-values-line">
-              <div
-                className="rect"
-                style={{ backgroundColor: `${white}` }}
-              ></div>
-              <label for="popup-white">Background color:</label>
-              <input
-                id="popup-white"
-                value={white}
-                size="8"
-                data-clipboard-target="#popup-white"
-                readOnly={true}
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck={false}
-              />
-              <button onClick={copyData}>
-                <IoCopyOutline />
-              </button>
-            </div>
-
-            <div className="popup-values-line">
-              <div
-                className="rect"
-                style={{ backgroundColor: `${light}` }}
-              ></div>
-              <label for="popup-light">Grey color:</label>
-              <input
-                id="popup-light"
-                value={light}
-                size="8"
-                data-clipboard-target="#popup-light"
-                readOnly={true}
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck={false}
-              />
-              <button onClick={copyData}>
-                <IoCopyOutline />
-              </button>
-            </div>
-
-            <div className="popup-values-line">
-              <div
-                className="rect"
-                style={{ backgroundColor: `${dark}` }}
-              ></div>
-              <label for="popup-white">Text color:</label>
-              <input
-                id="popup-dark"
-                value={dark}
-                size="8"
-                data-clipboard-target="#popup-dark"
-                readOnly={true}
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck={false}
-              />
-              <button onClick={copyData}>
-                <IoCopyOutline />
-              </button>
-            </div>
-          </form>
+          <form>{valueList}</form>
         </div>
       )}
 
       {activeTab === "css" && (
         <div className="popup-css">
           <form className="popup-css-form">
-            <CssText colourSet={props.colourSet} />
+            <CssText colourSet={props.colourSet} copyData={copyData} />
           </form>
-          <button onClick={copyData}>
-            <IoCopyOutline />
-          </button>
         </div>
       )}
     </section>
