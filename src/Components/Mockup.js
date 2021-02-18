@@ -88,7 +88,9 @@ function Mockup(props) {
 
   return (
     <div
-      className={`mockup ${accent1.colour.length > 0 ? "" : "mockup-inactive"}`}
+      className={`mockup ${
+        accent1.colour.length === 0 ? "mockup-inactive" : ""
+      }`}
     >
       <div
         className="page"

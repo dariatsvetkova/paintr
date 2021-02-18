@@ -507,7 +507,10 @@ header .background img {
   flex: 0 0 80em;
   border: 1px solid var(--PR-light-grey);
   font-size: 0.45em;
-  transition: all 0.3s ease-in-out;
+}
+
+.mockup > * {
+  transition: all 0.5s ease-in-out;
 }
 
 .mockup-inactive {
@@ -544,8 +547,8 @@ header .background img {
 .animated-eraser {
   grid-column: 1/2;
   grid-row: 1/2;
-  width: 30em;
-  height: 7.5em;
+  width: 270px;
+  height: 67.5px;
   z-index: 2;
   margin: auto;
   background-image: url("./stroke.svg");
@@ -562,7 +565,7 @@ header .background img {
     background-position: 5%;
   }
   95% {
-    background-position: 90%;
+    background-position: 85%;
   }
 }
 
@@ -570,7 +573,7 @@ header .background img {
 .animated-logo .logo-roller {
   grid-column: 1/2;
   grid-row: 1/2;
-  width: 30em;
+  width: 270px;
   margin: auto;
 }
 
@@ -601,7 +604,7 @@ header .background img {
     transform: translateX(0);
   }
   50% {
-    transform: translateX(22.5em);
+    transform: translateX(183px);
   }
   90% {
     transform: translateX(0);
@@ -971,6 +974,17 @@ footer .social-icons a:active {
             width: 100%;
             height: max-content;
             font-size: 0.57em;
+          }
+
+          .mockup .animated-logo {
+            align-items: flex-start;
+          }
+
+          .animated-logo .logo-letters,
+          .animated-logo .logo-roller,
+          .animated-eraser {
+            margin-top: 10em;
+            width: 200px;
           }
 
           .mockup .menu-items {
