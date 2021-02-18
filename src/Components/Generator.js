@@ -98,9 +98,13 @@ class Generator extends React.Component {
   }
 
   handleRemove(ind) {
-    let newCols = this.state.userColours;
+    let newCols = this.state.userColours,
+      removedCol = document.querySelectorAll(".user-colour")[ind];
     newCols.splice(ind, 1);
-    return this.setState({ userColours: newCols });
+    return (
+      setTimeout(() => this.setState({ userColours: newCols }), 300) &&
+      removedCol.classList.add("disappear")
+    );
   }
 
   handleShuffle() {
@@ -247,9 +251,7 @@ class Generator extends React.Component {
             )}
           </div>
 
-          {this.state.primary.colour.length > 0 && (
-            <Palette colourSet={colourSet} />
-          )}
+          <Palette colourSet={colourSet} isLoading={this.state.isLoading} />
 
           <div className="buttons">
             <button

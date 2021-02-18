@@ -8,21 +8,17 @@ function ColoursForm(props) {
   const [isActive, setActive] = useState(false);
   const [error, setError] = useState(false);
 
-  // useEffect(() => {
-  //   function handleClose(e) {
-  //     if (isActive) {
-  //       const field = document.querySelector(".colour-input"),
-  //         addButton = document.getElementById("new-item-add");
+  useEffect(() => {
+    function handleClose(e) {
+      if (!isActive) return;
+      console.log("executing");
+      const field = document.querySelector(".colour-input");
 
-  //       return (
-  //         (!field.contains(e.target) || addButton.contains(e.target)) &&
-  //         setActive(false)
-  //       );
-  //     }
-  //   }
-  //   document.addEventListener("click", handleClose, false);
-  //   return () => document.removeEventListener("click", handleClose, false);
-  // });
+      return !field.contains(e.target) && setActive(false);
+    }
+    document.addEventListener("click", handleClose, false);
+    return () => document.removeEventListener("click", handleClose, false);
+  });
 
   const handleInput = (event) => {
     let val = event.target.value;

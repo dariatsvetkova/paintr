@@ -128,6 +128,28 @@ button:disabled {
   transform: scale(0.98) translateY(1px);
 }
 
+.disappear {
+  animation: disappear 0.3s ease-in-out 1 !important;
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 /* --- SECTION STYLES --- */
 
 /* -- Header -- */
@@ -295,6 +317,11 @@ header .background img {
 
 .colour-prompt {
   cursor: pointer;
+  animation: appear 0.3s ease-in-out 1;
+}
+
+.colour-input {
+  animation: appear 0.3s ease-in-out 1;
 }
 
 .colour-prompt,
@@ -303,7 +330,6 @@ header .background img {
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
-  transition: all 0.3s ease-in-out;
 }
 
 .colour-prompt > * {
@@ -333,6 +359,10 @@ header .background img {
   flex-flow: row nowrap;
 }
 
+.palette > * {
+  transition: all 0.3s ease-in-out;
+}
+
 .palette .colour {
   display: inline-block;
   margin: 0;
@@ -357,13 +387,13 @@ header .background img {
   flex: 0 1 15%;
 }
 
-.palette .light {
-  flex: 1 0 5%;
-}
-
 .palette .dark {
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+
+.palette .light {
+  flex: 1 0 5%;
 }
 
 .buttons {
@@ -399,6 +429,7 @@ header .background img {
   background-color: var(--PR-white);
   padding: 1em;
   margin: 0.2em;
+  animation: appear 0.3s ease-in-out 1;
 }
 
 .popup-card .instructions {
@@ -509,8 +540,8 @@ header .background img {
   font-size: 0.45em;
 }
 
-.mockup > * {
-  transition: all 0.5s ease-in-out;
+.page > * {
+  transition: all 0.5s ease-in;
 }
 
 .mockup-inactive {

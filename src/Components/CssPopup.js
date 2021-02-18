@@ -13,7 +13,8 @@ function CssPopup(props) {
 
       return (
         (!popup.contains(e.target) || closeButton.contains(e.target)) &&
-        props.handleCopy()
+        setTimeout(() => props.handleCopy(), 300) &&
+        popup.classList.add("disappear")
       );
     }
     document.addEventListener("click", handleClose, false);
