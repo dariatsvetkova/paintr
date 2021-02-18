@@ -234,7 +234,6 @@ header .background img {
 /* - Controls - */
 
 .controls {
-  height: 31.75em;
   flex: 0 0 360px;
   margin-right: 2.25em;
   padding: 2em;
@@ -294,13 +293,16 @@ header .background img {
   border: 0.5px solid var(--PR-light-grey);
 }
 
+.colour-prompt {
+  cursor: pointer;
+}
+
 .colour-prompt,
 .colour-input div {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
-  cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
 
@@ -501,7 +503,7 @@ header .background img {
 /* - Mockup - */
 
 .mockup {
-  height: 70.56em;
+  position: relative;
   flex: 0 0 80em;
   border: 1px solid var(--PR-light-grey);
   font-size: 0.45em;
@@ -513,15 +515,97 @@ header .background img {
 }
 
 .mockup .animated-logo {
+  position: absolute;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
   align-items: center;
+  background-color: var(--PR-white);
+  animation: logo-back 3s linear 1;
 }
 
-.mockup .animated-logo .logo {
+@keyframes logo-back {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animated-eraser {
+  grid-column: 1/2;
+  grid-row: 1/2;
   width: 30em;
+  height: 7.5em;
+  z-index: 2;
+  margin: auto;
+  background-image: url("./stroke.svg");
+  background-size: 200% 100%;
+  background-position: 90%;
+  animation: erase 3s ease-in-out 1;
+}
+
+@keyframes erase {
+  10% {
+    background-position: 90%;
+  }
+  55% {
+    background-position: 5%;
+  }
+  95% {
+    background-position: 90%;
+  }
+}
+
+.animated-logo .logo-letters,
+.animated-logo .logo-roller {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  width: 30em;
+  margin: auto;
+}
+
+.animated-logo .logo-letters {
+  z-index: 1;
+}
+
+.animated-logo .logo-letters .roller path {
+  fill: none;
+  stroke: none;
+}
+
+.animated-logo .logo-roller {
+  z-index: 3;
+}
+
+.animated-logo .logo-roller .letters path {
+  fill: none;
+  stroke: none;
+}
+
+.animated-logo .logo-roller .roller {
+  animation: roll 3s ease-in-out 1;
+}
+
+@keyframes roll {
+  10% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(22.5em);
+  }
+  90% {
+    transform: translateX(0);
+  }
 }
 
 .mockup .navbar {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import namedColors from "color-name-list"; // https://github.com/meodai/color-names
 import { IoAdd } from "react-icons/io5";
 import hexToHsl from "./hexToHsl";
@@ -7,6 +7,22 @@ function ColoursForm(props) {
   const [input, setInput] = useState("");
   const [isActive, setActive] = useState(false);
   const [error, setError] = useState(false);
+
+  // useEffect(() => {
+  //   function handleClose(e) {
+  //     if (isActive) {
+  //       const field = document.querySelector(".colour-input"),
+  //         addButton = document.getElementById("new-item-add");
+
+  //       return (
+  //         (!field.contains(e.target) || addButton.contains(e.target)) &&
+  //         setActive(false)
+  //       );
+  //     }
+  //   }
+  //   document.addEventListener("click", handleClose, false);
+  //   return () => document.removeEventListener("click", handleClose, false);
+  // });
 
   const handleInput = (event) => {
     let val = event.target.value;
@@ -19,14 +35,18 @@ function ColoursForm(props) {
     let val = input;
 
     // If a colour name was provided, replace it with its hex value:
-    if (val.match(/^[a-z]+$/i)) {
-      val = val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
-      let test = namedColors.find((color) => color.name === val);
+    if (val.match(/^[a-z\s-]+$/i)) {
+      let words = val.split(" ");
+      words = words.map((word) => {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      });
+      words = words.join(" ");
+
+      let test = namedColors.find((color) => color.name === words);
       if (test) {
         val = test.hex;
       }
     }
-
     val = val.charAt(0) === "#" ? val.toUpperCase() : "#" + val.toUpperCase();
 
     if (val.match(/^(#|)[0-9A-F]{3}$/)) {
@@ -72,7 +92,7 @@ function ColoursForm(props) {
       ) : (
         <div className="colour-prompt" onClick={() => setActive(true)}>
           <p>Add a color</p>
-          <button>
+          <button onClick={() => setActive(true)}>
             <IoAdd />
           </button>
         </div>

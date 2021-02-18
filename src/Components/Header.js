@@ -4,7 +4,7 @@ import Background from "../background.svg";
 function Header() {
   return (
     <header id="home">
-      <Logo fill={false} />
+      <Logo fill={false} class="" />
       <div className="text">
         <h1>The easiest way to choose the right website colors</h1>
         <h2>

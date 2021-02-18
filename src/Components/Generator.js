@@ -74,7 +74,7 @@ class Generator extends React.Component {
                     // Make sure that current colour set is the last one in session storage:
                     let keys = Object.keys(sessionStorage);
                     for (let k of keys) {
-                      k.slice(k.length - 1) > this.state.setId &&
+                      k.slice(9) > this.state.setId &&
                         sessionStorage.removeItem(k.toString());
                     }
 
@@ -165,23 +165,27 @@ class Generator extends React.Component {
   }
 
   handleBackForward(id) {
-    let updSet = sessionStorage.getItem(`colourSet${id}`);
-    updSet = JSON.parse(updSet);
+    try {
+      let updSet = sessionStorage.getItem(`colourSet${id}`);
+      updSet = JSON.parse(updSet);
 
-    return this.setState(
-      {
-        isLoading: true,
-        setId: id,
-        primary: updSet.primary,
-        accent1: updSet.accent1,
-        accent2: updSet.accent2,
-        white: updSet.white,
-        light: updSet.light,
-        dark: updSet.dark,
-        shuffleCount: 0,
-      },
-      () => setTimeout(() => this.setState({ isLoading: false }), 3000)
-    );
+      return this.setState(
+        {
+          isLoading: true,
+          setId: id,
+          primary: updSet.primary,
+          accent1: updSet.accent1,
+          accent2: updSet.accent2,
+          white: updSet.white,
+          light: updSet.light,
+          dark: updSet.dark,
+          shuffleCount: 0,
+        },
+        () => setTimeout(() => this.setState({ isLoading: false }), 3000)
+      );
+    } catch (e) {
+      console.log("Error in colour validation: ", e);
+    }
   }
 
   handleCopy() {
@@ -248,7 +252,12 @@ class Generator extends React.Component {
           )}
 
           <div className="buttons">
-            <button onClick={this.handleShuffle}>
+            <button
+              onClick={this.handleShuffle}
+              disabled={
+                this.state.isLoading || this.state.primary.colour.length === 0
+              }
+            >
               <IoShuffle />
             </button>
             <button
@@ -266,7 +275,12 @@ class Generator extends React.Component {
             >
               <IoReturnUpForward />
             </button>
-            <button onClick={this.handleCopy}>
+            <button
+              onClick={this.handleCopy}
+              disabled={
+                this.state.isLoading || this.state.primary.colour.length === 0
+              }
+            >
               <IoCopyOutline />
             </button>
           </div>

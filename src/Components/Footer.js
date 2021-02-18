@@ -14,7 +14,7 @@ function Footer() {
   return (
     <footer>
       <a href="#home">
-        <Logo fill="#FFFFFF" />
+        <Logo fill="#FFFFFF" class="" />
       </a>
       <small>
         <a href="https://dariatsvetkova.ca/" rel="noreferrer" target="_blank">
