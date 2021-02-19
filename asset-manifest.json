@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/dariatsvetkova/paintr/static/css/main.8b6774ee.chunk.css",
+    "main.js": "/dariatsvetkova/paintr/static/js/main.5aad34cc.chunk.js",
+    "main.js.map": "/dariatsvetkova/paintr/static/js/main.5aad34cc.chunk.js.map",
+    "runtime-main.js": "/dariatsvetkova/paintr/static/js/runtime-main.2c5b87c5.js",
+    "runtime-main.js.map": "/dariatsvetkova/paintr/static/js/runtime-main.2c5b87c5.js.map",
+    "static/js/2.833010fa.chunk.js": "/dariatsvetkova/paintr/static/js/2.833010fa.chunk.js",
+    "static/js/2.833010fa.chunk.js.map": "/dariatsvetkova/paintr/static/js/2.833010fa.chunk.js.map",
+    "static/js/3.ea5a4a81.chunk.js": "/dariatsvetkova/paintr/static/js/3.ea5a4a81.chunk.js",
+    "static/js/3.ea5a4a81.chunk.js.map": "/dariatsvetkova/paintr/static/js/3.ea5a4a81.chunk.js.map",
+    "index.html": "/dariatsvetkova/paintr/index.html",
+    "static/css/main.8b6774ee.chunk.css.map": "/dariatsvetkova/paintr/static/css/main.8b6774ee.chunk.css.map",
+    "static/js/2.833010fa.chunk.js.LICENSE.txt": "/dariatsvetkova/paintr/static/js/2.833010fa.chunk.js.LICENSE.txt",
+    "static/media/background.0dd16969.svg": "/dariatsvetkova/paintr/static/media/background.0dd16969.svg",
+    "static/media/App.css": "/dariatsvetkova/paintr/static/media/stroke.b7cb341b.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2c5b87c5.js",
+    "static/js/2.833010fa.chunk.js",
+    "static/css/main.8b6774ee.chunk.css",
+    "static/js/main.5aad34cc.chunk.js"
+  ]
+}
