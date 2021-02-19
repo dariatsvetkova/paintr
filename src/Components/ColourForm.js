@@ -11,7 +11,6 @@ function ColoursForm(props) {
   useEffect(() => {
     function handleClose(e) {
       if (!isActive) return;
-      console.log("executing");
       const field = document.querySelector(".colour-input");
 
       return !field.contains(e.target) && setActive(false);
@@ -51,7 +50,7 @@ function ColoursForm(props) {
 
     try {
       if (val.match(/^(#|)[0-9A-F]{6}$/)) {
-        val = hexToHsl(val);
+        val = hexToHsl(val); // converts hex from user input into hsl for generating the palette
         props.handleAdd(val);
         setActive(false);
         setInput("");

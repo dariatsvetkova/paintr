@@ -5,7 +5,7 @@ import { IoMenu } from "react-icons/io5";
 function Mockup(props) {
   const { primary, accent1, accent2, white, light, dark } = props.colourSet;
 
-  // Store/access previous primary colour value for the loading animation:
+  // Store/access previous primary colour value to use in the loading animation:
   function usePrev(value) {
     const prev = useRef();
     useEffect(() => {
@@ -16,7 +16,6 @@ function Mockup(props) {
 
   const [fill, setFill] = useState(false);
   const prevFill = usePrev(primary.colour);
-  console.log("prevFill: ", prevFill);
 
   useEffect(() => {
     setFill(
@@ -34,6 +33,7 @@ function Mockup(props) {
     el.style[prop] = col;
   };
 
+  // Assign colours to menu items based on their contrast with the current background:
   let menuItems = ["Home", "About", "Products", "Contact"];
   menuItems = menuItems.map((el) => {
     return el === "Home" ? (
@@ -60,6 +60,7 @@ function Mockup(props) {
     );
   });
 
+  // Assign colours to links based on their contrast with the current background:
   const linkStyles = darkMode
     ? {
         color: accent1.pairs.includes(light)
@@ -80,6 +81,7 @@ function Mockup(props) {
           : dark,
       };
 
+  // Assign styles to the "benefits" based on the current background:
   const pillarStyle = {
     color: `${darkMode ? white : dark}`,
     backgroundColor: `${darkMode ? light : white}`,

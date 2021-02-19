@@ -11,7 +11,7 @@ function generate(userColours) {
       accent1 = [],
       accent2 = [],
       white = [],
-      light = [],
+      light = [], // This will be a light grey colour used as background in some parts of a website
       dark = [],
       hue = [];
 
@@ -31,7 +31,7 @@ function generate(userColours) {
               white.length === 0 ? light : white[2] > col[2] ? col : white; // If there is already a white, compare their lightness
             white = white.length === 0 ? col : white[2] > col[2] ? white : col;
 
-            hue.push(white[0]); // If the user's colours aren't set as primary, use the same hue to create a primary colour later
+            hue.push(white[0]); // If none of the user's colours are set as primary, use the same hue to create a primary colour later
             light.length > 0 && hue.push(light[0]);
           } else if (col[2] > 80 && col[1] <= 15) {
             light = col;
@@ -72,15 +72,6 @@ function generate(userColours) {
       });
     }
 
-    console.log(`user colours: 
-    primary: ${primary}
-    accent1: ${accent1}
-    white: ${white}
-    light: ${light}
-    dark: ${dark}
-    hue: ${hue}
-    `);
-
     // 1b. If the primary colour wasn't set, generate it randomly:
 
     primary =
@@ -89,8 +80,8 @@ function generate(userColours) {
         : [
             hue.length > 0
               ? hue[Math.round(Math.random() * (hue.length - 1))]
-              : Math.round(Math.random() * 360), // Use the hue from user's colours or generate randomly
-            Math.floor(Math.random() * (90 - 20 + 1)) + 20, // Saturation over 20 to prevent all colours from blending in with the neutrals; under 90 to avoid pure colours
+              : Math.round(Math.random() * 360), // Use the hue from user's colours, if any, or generate randomly
+            Math.floor(Math.random() * (90 - 20 + 1)) + 20, // Saturation over 20 to prevent all colours from blending in with the neutrals; under 90 to avoid colours that are too bright
             Math.floor(Math.random() * (85 - 30 + 1)) + 30, // Lightness between 30 and 85 to prevent blending in with black and white
           ];
 
@@ -99,7 +90,7 @@ function generate(userColours) {
     let Methods = [];
     let method = "";
 
-    // 2a. If the user provided two colours, approximate the method based on their difference in hue:
+    // 2a. If the user provided two colours, approximate appropriate methods based on their difference in hue:
     if (userColours.length === 2) {
       let angle = Math.abs(userColours[0][0] - userColours[1][0]);
 
@@ -119,7 +110,6 @@ function generate(userColours) {
     }
 
     method = Methods[Math.round(Math.random() * (Methods.length - 1))];
-    console.log("method: ", method);
 
     // 3. Generate accent colour(s) by shifting the hue, saturation and lightness of the primary colour:
 
@@ -340,17 +330,8 @@ function generate(userColours) {
             Math.floor(Math.random() * (20 - 2 + 1)) + 2,
           ];
 
-    console.log(`generated colours: 
-    primary: ${primary}
-    accent1: ${accent1}
-    accent2: ${accent2}
-    white: ${white}
-    light: ${light}
-    dark: ${dark}
-    `);
-
     // 5. If the generated colour palette matches the contrast requirements, set it as the new colour scheme;
-    // otherwise, generate new colours:
+    // otherwise, return false (in that case the function is called again in Generator component):
 
     let test = validateScheme(
       primary,
@@ -399,21 +380,18 @@ function validateScheme(p, a1, a2, w, l, d, userColours) {
   let core = [p, a1, a2],
     neutrals = [w, l, d];
 
-  // 1. Check contrast between the newtral colours:
+  // 1. Check contrast between the neutral colours:
 
   if (checkContrast(w, d) > 1 / 7) {
     // (has to match 7.0 : 1 ratio or higher)
-    console.log("white/dark fail");
     return false; // Not enough contrast between white and dark
   } else {
     if (checkContrast(w, l) > 1 / 4.5 && checkContrast(d, l) > 1 / 4.5) {
-      console.log("neutrals fail");
       return false; // Not enough contrast between light-grey and white and dark
     }
-    console.log("neutrals pass");
   }
 
-  // 2. Check that primary, accent1 and accent2 are different enough in either contrast or hue
+  // 2. Check that core colours (primary, accent1 and accent2) are different enough in either contrast or hue
   //  (doesn't have to match the 4.5 : 1 ratio, since they are not used in text/background pairs):
 
   const check = (c1, c2) => {
@@ -425,32 +403,26 @@ function validateScheme(p, a1, a2, w, l, d, userColours) {
 
   if (!check(p, a1) && !check(p, a2)) {
     // Both accent colours are too close to primary
-    console.log("both accents lack contrast with p");
     return false;
   } else if (check(p, a1) && !check(p, a2)) {
     // Accent2 is too close to primary
-    console.log("a2 lacks contrast with p");
     core.splice(2, 1); // Remove accent2 from the palette and only use accent1
   } else if (!check(p, a1) && check(p, a2)) {
     // Accent1 is too close to primary
     if (!userColours.some((val) => val.every((num, i) => num === a1[i]))) {
-      console.log("a1 was not set by the user and lacks contrast with p");
       core.splice(1, 1); // If accent1 was not set by the user, remove it and only use accent2
-    } else {
-      console.log("a1 was set by the user and lacks contrast with p"); // It accent1 was set by the user, let them get away with it
     }
+    // If accent1 was set by the user, let them get away with it.
   } else {
     // Both accent colours have enough contrast with primary
     if (!check(a1, a2)) {
+      // Accent1 is too close to accent2
       if (userColours.some((val) => val.every((num, i) => num === a1[i]))) {
-        console.log("a1 was set by the user and lacks contrast with a2");
         core.splice(2, 1); // If accent1 was set by the user, leave it and remove accent2
       } else {
-        console.log("a1 was not set by the user and lacks contrast with a2");
         core.splice(Math.round(Math.random() + 1), 1); // If accent1 wasn't set by the user, choose randomly which of the accent colours to remove
       }
     }
-    console.log("primary/accent1/accent2 pass");
   }
 
   // 3. Check contrast between the neutral colours and the core colours
@@ -477,7 +449,6 @@ function validateScheme(p, a1, a2, w, l, d, userColours) {
         return true;
       } else {
         if (i === 2) {
-          console.log("a2 lacks contrast with neutrals");
           core.splice(2, 1);
           return true;
         } else {
@@ -486,8 +457,7 @@ function validateScheme(p, a1, a2, w, l, d, userColours) {
       }
     })
   ) {
-    console.log("overall core/neutrals fail");
-    return false;
+    return false; // If any of the core colours don't meet contrast requirements, the whole scheme is not validated
   } else {
     // If all tests are passed, return the colour palette with updates (if any)
     return {

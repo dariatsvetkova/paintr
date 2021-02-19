@@ -1,7 +1,4 @@
-// Convert Hex to RGB for calculating the contrast ratios:
-
 function hexToRgb(inputHex) {
-
   if (inputHex.length > 0) {
     let resultRgb = [];
 

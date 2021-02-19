@@ -19,16 +19,16 @@ class Generator extends React.Component {
     super();
     this.state = {
       isLoading: false,
-      userColours: [],
-      setId: 0,
-      primary: { colour: [], pairs: [] },
+      userColours: [], // hsl values of colours added by the user, if any
+      setId: 0, // number of the current colour set in session storage
+      primary: { colour: [], pairs: [] }, // hsl values of the colour and the colours it can be paired with (black and/or white)
       accent1: { colour: [], pairs: [] },
       accent2: { colour: [], pairs: [] },
-      white: [],
-      light: [],
-      dark: [],
-      shuffleCount: 0,
-      showCss: false,
+      white: [], // background colour (white or black, if in dark mode)
+      light: [], //  light grey colour used for background in some elements
+      dark: [], // text colour (black or white, if in dark mode)
+      shuffleCount: 0, // number of times the current colour set has been shuffled by the user
+      showCss: false, // shows/hides the modal with CSS code
     };
     this.handleGenerateClick = this.handleGenerateClick.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
@@ -40,7 +40,9 @@ class Generator extends React.Component {
 
   // Input handlers:
 
+  // "Generate" button clicked:
   handleGenerateClick() {
+    // Turn on the loading animation, restart the shuffle count:
     this.setState(
       {
         isLoading: true,
@@ -49,6 +51,7 @@ class Generator extends React.Component {
       () => {
         let promise = generate(this.state.userColours);
 
+        // Get a colour set:
         promise.then(
           (result) => {
             return result
@@ -78,7 +81,7 @@ class Generator extends React.Component {
                         sessionStorage.removeItem(k.toString());
                     }
 
-                    // Turn off loading animation:
+                    // Turn off the loading animation:
                     setTimeout(() => this.setState({ isLoading: false }), 3000);
                   }
                 )
@@ -90,6 +93,7 @@ class Generator extends React.Component {
     );
   }
 
+  // User added a colour:
   handleAdd(val) {
     let cols = this.state.userColours;
     !cols.some((col) => col.every((num, i) => num === val[i])) &&
@@ -97,6 +101,7 @@ class Generator extends React.Component {
     return this.setState({ userColours: cols });
   }
 
+  // User removed a colour:
   handleRemove(ind) {
     let newCols = this.state.userColours,
       removedCol = document.querySelectorAll(".user-colour")[ind];
@@ -107,6 +112,7 @@ class Generator extends React.Component {
     );
   }
 
+  // "Shuffle" button clicked:
   handleShuffle() {
     const { primary, accent1, accent2, white, dark } = this.state;
     let newColourSet =
@@ -168,6 +174,7 @@ class Generator extends React.Component {
     });
   }
 
+  // "Back" or "Forward" button clicked:
   handleBackForward(id) {
     try {
       let updSet = sessionStorage.getItem(`colourSet${id}`);
@@ -192,6 +199,7 @@ class Generator extends React.Component {
     }
   }
 
+  // "Copy" button clicked:
   handleCopy() {
     return this.setState((prevState) => {
       return { showCss: !prevState.showCss };
@@ -208,6 +216,7 @@ class Generator extends React.Component {
       dark: "",
     };
 
+    // Get hsl colours from state and convert them to hex:
     for (let key in colourSet) {
       if (colourSet.hasOwnProperty(key)) {
         colourSet[key] =
@@ -225,6 +234,7 @@ class Generator extends React.Component {
       }
     }
 
+    // Create a list of user's colours, if any:
     const UserColours = this.state.userColours.map((col, i) => {
       return (
         <UserColour

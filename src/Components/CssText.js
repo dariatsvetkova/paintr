@@ -6,7 +6,7 @@ function CssText(props) {
 
   const { primary, accent1, accent2, white, light, dark } = props.colourSet;
 
-  // If the value of "dark" colour is greater than "white" colour, it means the colours have been swapped and we're in dark mode:
+  // If the value of "dark" colour is greater than that of "white" colour, it means the colours have been swapped and we're in dark mode:
   const darkMode = parseInt(dark.slice(1), 16) > parseInt(white.slice(1), 16);
 
   const linkStyles = accent1.pairs.includes(white)
