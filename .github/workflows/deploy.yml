@@ -20,6 +20,6 @@ jobs:
       - name: Deploy to GH Pages
         run:
         git config --global user.email "d.s.tsvetkova@hotmail.com"
-        git config --global user.name "Daria Tsvetkova"
+        git config --global user.name "dariatsvetkova"
         git remote set-url origin https://PAT@github.com/dariatsvetkova/paintr.git
         npm run deploy
