@@ -581,7 +581,7 @@ header .background img {
   height: 67.5px;
   z-index: 2;
   margin: auto;
-  background-image: url("./stroke.svg");
+  background-image: url("./stroke.png");
   background-size: 200% 100%;
   background-position: 90%;
   animation: erase 3s ease-in-out 1;
