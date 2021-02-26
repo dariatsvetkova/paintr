@@ -11,7 +11,7 @@ function UserColour(props) {
         style={{
           backgroundColor: `${col}`,
         }}
-      ></div>
+      />
       <span>{col}</span>
       <button onClick={() => props.handleRemove(props.ind)}>
         <IoRemove />
