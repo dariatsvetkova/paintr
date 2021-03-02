@@ -1,18 +1,18 @@
-import React from "react";
-import "../App.css";
-import generate from "./generate";
-import hslToHex from "./hslToHex";
-import UserColour from "./UserColour";
-import ColourForm from "./ColourForm";
-import Palette from "./Palette";
+import React from 'react';
+import '../App.css';
+import generate from './generate';
+import hslToHex from './hslToHex';
+import UserColour from './UserColour';
+import ColourForm from './ColourForm';
+import Palette from './Palette';
 import {
   IoShuffle,
   IoReturnDownBack,
   IoReturnUpForward,
   IoCopyOutline,
-} from "react-icons/io5";
-import CssPopup from "./CssPopup";
-import Mockup from "./Mockup";
+} from 'react-icons/io5';
+import CssPopup from './CssPopup';
+import Mockup from './Mockup';
 
 class Generator extends React.Component {
   constructor() {
@@ -21,13 +21,13 @@ class Generator extends React.Component {
       isLoading: false,
       userColours: [], // hsl values of colours added by the user, if any
       setId: 0, // number of the current colour set in session storage
-      primary: { colour: [], pairs: [] }, // hsl values of the colour and the colours it can be paired with (black and/or white)
-      accent1: { colour: [], pairs: [] },
-      accent2: { colour: [], pairs: [] },
+      primary: {colour: [], pairs: []}, // the colour and its possible pairs
+      accent1: {colour: [], pairs: []},
+      accent2: {colour: [], pairs: []},
       white: [], // background colour (white or black, if in dark mode)
       light: [], //  light grey colour used for background in some elements
       dark: [], // text colour (black or white, if in dark mode)
-      shuffleCount: 0, // number of times the current colour set has been shuffled by the user
+      shuffleCount: 0, // number of times user shuffled the current set
       showCss: false, // shows/hides the modal with CSS code
     };
     this.handleGenerateClick = this.handleGenerateClick.bind(this);
@@ -44,18 +44,18 @@ class Generator extends React.Component {
   handleGenerateClick() {
     // Turn on the loading animation, restart the shuffle count:
     this.setState(
-      {
-        isLoading: true,
-        shuffleCount: 0,
-      },
-      () => {
-        let promise = generate(this.state.userColours);
+        {
+          isLoading: true,
+          shuffleCount: 0,
+        },
+        () => {
+          const promise = generate(this.state.userColours);
 
-        // Get a colour set:
-        promise.then(
-          (result) => {
-            return result
-              ? this.setState(
+          // Get a colour set:
+          promise.then(
+              (result) => {
+                return result ?
+              this.setState(
                   (prevState) => {
                     return {
                       setId: prevState.setId + 1,
@@ -70,65 +70,67 @@ class Generator extends React.Component {
                   () => {
                     // Save current colour set to session storage:
                     sessionStorage.setItem(
-                      `colourSet${this.state.setId}`,
-                      JSON.stringify(result)
+                        `colourSet${this.state.setId}`,
+                        JSON.stringify(result),
                     );
 
-                    // Make sure that current colour set is the last one in session storage:
-                    let keys = Object.keys(sessionStorage);
-                    for (let k of keys) {
+                    // Ensure current colour set is the last in session storage:
+                    const keys = Object.keys(sessionStorage);
+                    for (const k of keys) {
                       k.slice(9) > this.state.setId &&
                         sessionStorage.removeItem(k.toString());
                     }
 
                     // Turn off the loading animation:
-                    setTimeout(() => this.setState({ isLoading: false }), 3000);
-                  }
-                )
-              : this.handleGenerateClick();
-          },
-          (error) => console.log("error in generate(): ", error)
-        );
-      }
+                    setTimeout(() => this.setState({isLoading: false}), 3000);
+                  },
+              ) :
+              this.handleGenerateClick();
+              },
+              (error) => console.log('error in generate(): ', error),
+          );
+        },
     );
   }
 
   // User added a colour:
   handleAdd(val) {
-    let cols = this.state.userColours;
+    const cols = this.state.userColours;
     !cols.some((col) => col.every((num, i) => num === val[i])) &&
-      cols.push(val); // If the colour hasn't been added yet, add it to userColours
-    return this.setState({ userColours: cols });
+    // If the colour hasn't been added yet, add it to userColours
+      cols.push(val);
+    return this.setState({userColours: cols});
   }
 
   // User removed a colour:
   handleRemove(ind) {
-    let newCols = this.state.userColours,
-      removedCol = document.querySelectorAll(".user-colour")[ind];
+    const newCols = this.state.userColours;
+    const removedCol = document.querySelectorAll('.user-colour')[ind];
     newCols.splice(ind, 1);
     return (
-      setTimeout(() => this.setState({ userColours: newCols }), 300) &&
-      removedCol.classList.add("disappear")
+      setTimeout(() => this.setState({userColours: newCols}), 300) &&
+      removedCol.classList.add('disappear')
     );
   }
 
   // "Shuffle" button clicked:
   handleShuffle() {
-    const { primary, accent1, accent2, white, dark } = this.state;
-    let newColourSet =
-      accent2.colour.length > 0
-        ? [primary, accent1, accent2, white, dark]
-        : [primary, accent1, white, dark];
+    const {primary, accent1, accent2, white, dark} = this.state;
+    const newColourSet =
+      accent2.colour.length > 0 ?
+        [primary, accent1, accent2, white, dark] :
+        [primary, accent1, white, dark];
 
     switch (this.state.shuffleCount) {
       case 0:
       case 2:
         // Swap white and dark colours (i.e. dark mode):
-        let a = newColourSet.length - 2,
-          b = newColourSet.length - 1;
+        const a = newColourSet.length - 2;
+        const b = newColourSet.length - 1;
         [newColourSet[a], newColourSet[b]] = [newColourSet[b], newColourSet[a]];
 
-        // If the new primary colour has more than one pair, switch to the other pair for dark mode:
+        // If the new primary colour has more than one pair,
+        // switch to the other pair for dark mode:
         [
           newColourSet[0].pairs[0],
           newColourSet[0].pairs[newColourSet[0].pairs.length - 1],
@@ -144,7 +146,8 @@ class Generator extends React.Component {
         break;
 
       case 3:
-        // If there is accent2, swap it with accent1; if not, swap primary and accent1 again:
+        // If there is accent2, swap it with accent1;
+        // if not, swap primary and accent1 again:
         [
           newColourSet[newColourSet.length - 4],
           newColourSet[newColourSet.length - 3],
@@ -163,9 +166,9 @@ class Generator extends React.Component {
         primary: newColourSet[0],
         accent1: newColourSet[1],
         accent2:
-          accent2.colour.length > 0
-            ? newColourSet[2]
-            : { colour: [], pairs: [] },
+          accent2.colour.length > 0 ?
+            newColourSet[2] :
+            {colour: [], pairs: []},
         white: newColourSet[newColourSet.length - 2],
         dark: newColourSet[newColourSet.length - 1],
         shuffleCount:
@@ -181,28 +184,28 @@ class Generator extends React.Component {
       updSet = JSON.parse(updSet);
 
       return this.setState(
-        {
-          isLoading: true,
-          setId: id,
-          primary: updSet.primary,
-          accent1: updSet.accent1,
-          accent2: updSet.accent2,
-          white: updSet.white,
-          light: updSet.light,
-          dark: updSet.dark,
-          shuffleCount: 0,
-        },
-        () => setTimeout(() => this.setState({ isLoading: false }), 3000)
+          {
+            isLoading: true,
+            setId: id,
+            primary: updSet.primary,
+            accent1: updSet.accent1,
+            accent2: updSet.accent2,
+            white: updSet.white,
+            light: updSet.light,
+            dark: updSet.dark,
+            shuffleCount: 0,
+          },
+          () => setTimeout(() => this.setState({isLoading: false}), 3000),
       );
     } catch (e) {
-      console.log("Error in colour validation: ", e);
+      console.log('Error in colour validation: ', e);
     }
   }
 
   // "Copy" button clicked:
   handleCopy() {
     return this.setState((prevState) => {
-      return { showCss: !prevState.showCss };
+      return {showCss: !prevState.showCss};
     });
   }
 
@@ -211,26 +214,26 @@ class Generator extends React.Component {
       primary: {},
       accent1: {},
       accent2: {},
-      white: "",
-      light: "",
-      dark: "",
+      white: '',
+      light: '',
+      dark: '',
     };
 
     // Get hsl colours from state and convert them to hex:
-    for (let key in colourSet) {
+    for (const key in colourSet) {
       if (colourSet.hasOwnProperty(key)) {
         colourSet[key] =
-          (key === "primary" || key === "accent1" || key === "accent2") &&
-          this.state[key].colour.length > 0
-            ? {
-                colour: hslToHex(this.state[key].colour),
-                pairs: this.state[key].pairs.map((col) => {
-                  return hslToHex(col);
-                }),
-              }
-            : this.state[key].length > 0
-            ? hslToHex(this.state[key])
-            : this.state[key];
+          (key === 'primary' || key === 'accent1' || key === 'accent2') &&
+          this.state[key].colour.length > 0 ?
+            {
+              colour: hslToHex(this.state[key].colour),
+              pairs: this.state[key].pairs.map((col) => {
+                return hslToHex(col);
+              }),
+            } :
+            this.state[key].length > 0 ?
+            hslToHex(this.state[key]) :
+            this.state[key];
       }
     }
 

@@ -1,5 +1,6 @@
-import hslToHex from "./hslToHex";
-import { IoRemove } from "react-icons/io5";
+import React from 'react';
+import hslToHex from './hslToHex';
+import {IoRemove} from 'react-icons/io5';
 
 function UserColour(props) {
   const col = hslToHex(props.colour);

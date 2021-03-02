@@ -1,9 +1,10 @@
-import { IoCopyOutline } from "react-icons/io5";
+import React from 'react';
+import {IoCopyOutline} from 'react-icons/io5';
 
 function CopyButton(props) {
   return (
     <>
-      {document.queryCommandSupported("copy") && (
+      {document.queryCommandSupported('copy') && (
         <button
           onClick={(e) =>
             props.copyData(e, props.id, () => {

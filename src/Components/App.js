@@ -5,16 +5,16 @@ import Generator from './Generator';
 import Footer from './Footer';
 
 function App() {
-    return (
-        <>
-            <Header />
-            <main>
-                <HowTo />
-                <Generator />
-            </main>
-            <Footer />
-        </>
-    )
+  return (
+    <>
+      <Header />
+      <main>
+        <HowTo />
+        <Generator />
+      </main>
+      <Footer />
+    </>
+  );
 }
 
 export default App;

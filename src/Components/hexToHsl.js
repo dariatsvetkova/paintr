@@ -1,13 +1,13 @@
 function hexToHsl(inputHex) {
   if (inputHex.length > 0) {
-    let r = parseInt(inputHex.slice(1, 3), 16) / 255,
-      g = parseInt(inputHex.slice(3, 5), 16) / 255,
-      b = parseInt(inputHex.slice(5), 16) / 255,
-      max = Math.max(r, g, b),
-      min = Math.min(r, g, b),
-      l = (max + min) / 2,
-      h,
-      s;
+    const r = parseInt(inputHex.slice(1, 3), 16) / 255;
+    const g = parseInt(inputHex.slice(3, 5), 16) / 255;
+    const b = parseInt(inputHex.slice(5), 16) / 255;
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let l = (max + min) / 2;
+    let h;
+    let s;
 
     if (max === min) {
       h = s = 0;

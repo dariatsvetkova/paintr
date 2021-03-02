@@ -1,3 +1,5 @@
+import React from 'react';
+
 function HowTo() {
   return (
     <section className="how-to">

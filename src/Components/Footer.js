@@ -1,15 +1,16 @@
-import Logo from "./Logo.js";
+import React from 'react';
+import Logo from './Logo.js';
 import {
   FaFacebookSquare,
   FaTwitterSquare,
   FaPinterestSquare,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
 function Footer() {
   const text = encodeURIComponent(
-      "Check out Paintr, a web app that generates color schemes for websites!"
-    ),
-    url = "https://paintr.io/";
+      'Check out Paintr, a web app that generates color schemes for websites!',
+  );
+  const url = 'https://paintr.io/';
 
   return (
     <footer>

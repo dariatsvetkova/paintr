@@ -1,5 +1,6 @@
-import Logo from "./Logo";
-import Background from "../background.svg";
+import React from 'react';
+import Logo from './Logo';
+import Background from '../background.svg';
 
 function Header() {
   return (

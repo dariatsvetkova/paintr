@@ -1,21 +1,22 @@
-import React, { useState } from "react";
-import CopyButton from "./CopyButton";
+import React, {useState} from 'react';
+import CopyButton from './CopyButton';
 
 function CssText(props) {
   const [copySuccess, setCopySuccess] = useState(false);
 
-  const { primary, accent1, accent2, white, light, dark } = props.colourSet;
+  const {primary, accent1, accent2, white, light, dark} = props.colourSet;
 
-  // If the value of "dark" colour is greater than that of "white" colour, it means the colours have been swapped and we're in dark mode:
+  // If the value of "dark" colour is greater than that of "white" colour,
+  // it means the colours have been swapped and we're in dark mode:
   const darkMode = parseInt(dark.slice(1), 16) > parseInt(white.slice(1), 16);
 
-  const linkStyles = accent1.pairs.includes(white)
-    ? accent1.colour
-    : accent2.pairs.length > 0 && accent2.pairs.includes(white)
-    ? accent2.colour
-    : primary.pairs.includes(white)
-    ? primary.colour
-    : dark;
+  const linkStyles = accent1.pairs.includes(white) ?
+    accent1.colour :
+    accent2.pairs.length > 0 && accent2.pairs.includes(white) ?
+    accent2.colour :
+    primary.pairs.includes(white) ?
+    primary.colour :
+    dark;
 
   const text = `:root {
         --Paintr-primary: ${primary.colour};
@@ -23,15 +24,15 @@ function CssText(props) {
         --Paintr-accent1: ${accent1.colour};
         --Paintr-accent1-text: ${accent1.pairs[0]};
         ${
-          accent2.colour.length > 0
-            ? `--Paintr-accent2: ${accent2.colour};`
-            : ""
-        }
+          accent2.colour.length > 0 ?
+            `--Paintr-accent2: ${accent2.colour};` :
+            ''
+}
         ${
-          accent2.colour.length > 0
-            ? `--Paintr-accent2-text: ${accent2.pairs[0]};`
-            : ""
-        }
+          accent2.colour.length > 0 ?
+            `--Paintr-accent2-text: ${accent2.pairs[0]};` :
+            ''
+}
         --Paintr-background: ${white};
         --Paintr-grey: ${light};
         --Paintr-text: ${dark};
@@ -47,8 +48,8 @@ function CssText(props) {
         color: var(--Paintr-link);
         text-decoration: none;
         border-bottom: 1px solid ${
-          linkStyles === dark ? "var(--Paintr-link)" : "transparent"
-        };
+          linkStyles === dark ? 'var(--Paintr-link)' : 'transparent'
+};
     }
     a:hover,
     a:focus {
@@ -148,16 +149,16 @@ function CssText(props) {
     }
     
     ${
-      darkMode
-        ? ""
-        : `section:nth-child(odd) {
+      darkMode ?
+        '' :
+        `section:nth-child(odd) {
             background-color: var(--Paintr-grey);
         }
             
         section:nth-child(event) {
             background-color: var(--Paintr-background);
         }`
-    }
+}
 
     abbr[title] {
     border-bottom-color: var(--Paintr-primary);
@@ -169,7 +170,7 @@ function CssText(props) {
     
     code,
     pre {
-    color: ${darkMode ? "var(--Paintr-background)" : "inherit"};
+    color: ${darkMode ? 'var(--Paintr-background)' : 'inherit'};
     background-color: var(--Paintr-grey);
     }
     
@@ -277,19 +278,19 @@ function CssText(props) {
     
     th,
     td {
-    border-top: 1px solid var(--Paintr-${darkMode ? "grey" : "text"});
+    border-top: 1px solid var(--Paintr-${darkMode ? 'grey' : 'text'});
     }
     tbody {
-    border-top: 2px solid var(--Paintr-${darkMode ? "grey" : "text"});
+    border-top: 2px solid var(--Paintr-${darkMode ? 'grey' : 'text'});
     }
     th,
     td {
-    border-left: 1px solid var(--Paintr-${darkMode ? "grey" : "text"});
+    border-left: 1px solid var(--Paintr-${darkMode ? 'grey' : 'text'});
     }
     tbody tr:nth-child(odd) td,
     tbody tr:nth-child(odd) th {
-    color: var(--Paintr-${darkMode ? "background" : "text"});
-    background-color: var(--Paintr-${darkMode ? "grey" : "background"});
+    color: var(--Paintr-${darkMode ? 'background' : 'text'});
+    background-color: var(--Paintr-${darkMode ? 'grey' : 'background'});
     }
     tbody tr:hover td,
     tbody tr:hover th {
@@ -298,7 +299,7 @@ function CssText(props) {
     }
     
     footer {
-    color: var(--Paintr-${darkMode ? "background" : "text"});
+    color: var(--Paintr-${darkMode ? 'background' : 'text'});
     background-color: var(--Paintr-grey);
     }
     
