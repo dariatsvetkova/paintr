@@ -1,18 +1,18 @@
 import React from 'react';
-import '../App.css';
-import generate from './generate';
-import hslToHex from './hslToHex';
-import UserColour from './UserColour';
-import ColourForm from './ColourForm';
-import Palette from './Palette';
+import './Generator.css';
+import generate from '../../Functions/generate';
+import hslToHex from '../../Functions/hslToHex';
+import UserColour from '../UserColour/UserColour';
+import ColourForm from '../ColourForm/ColourForm';
+import Palette from '../Palette/Palette';
 import {
   IoShuffle,
   IoReturnDownBack,
   IoReturnUpForward,
   IoCopyOutline,
 } from 'react-icons/io5';
-import CssPopup from './CssPopup';
-import Mockup from './Mockup';
+import CssPopup from '../Popup/CssPopup';
+import Mockup from '../Mockup/Mockup';
 
 class Generator extends React.Component {
   constructor() {

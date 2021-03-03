@@ -1,0 +1,129 @@
+.popup-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 70vw;
+  min-height: 70vh;
+  box-shadow: 0 0 100px var(--PR-dark-grey);
+  border-radius: 8px;
+  background-color: var(--PR-white);
+  padding: 1em;
+  margin: 0.2em;
+  animation: appear 0.3s ease-in-out 1;
+}
+
+.popup-card .instructions {
+  margin: 1em 48px;
+  text-align: center;
+}
+
+.popup-nav {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.popup-tab-name {
+  flex: 0 1 50%;
+  display: inline-block;
+  border: 1px solid var(--PR-dark-grey);
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  padding: 0 1em;
+  text-align: center;
+  background-color: #e6e9e9;
+}
+
+.popup-tab-active {
+  background-color: var(--PR-white);
+  font-weight: 700;
+  border-color: var(--PR-black);
+  border-bottom: none;
+  cursor: auto;
+}
+
+.popup-close-button {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+.popup-values,
+.popup-css {
+  border-radius: 0 0 8px 8px;
+  border: 1px solid var(--PR-black);
+  border-top: none;
+  padding: 1em;
+}
+
+.popup-values-line {
+  margin-bottom: 1em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-values-line > * {
+  margin: 0 0.2em;
+}
+
+.popup-values-line label,
+.popup-values-line input {
+  flex: 0 0 30%;
+}
+
+.popup-values-line .rect {
+  flex: 0 0 1.5em;
+  height: 1.5em;
+  border: 0.5px solid var(--PR-light-grey);
+}
+
+.popup-values-line button {
+  flex: 0 0 40px;
+}
+
+.popup-btn-container {
+  position: relative;
+}
+
+.popup-copy-success {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 10em;
+  padding: 0.3em;
+  color: var(--PR-white);
+  background-color: var(--PR-primary-light);
+  border-radius: 4px;
+  font-size: 0.7em;
+}
+
+.popup-css > * {
+  margin-bottom: 1em;
+}
+
+#popup-css-text {
+  width: 90%;
+  height: 14em;
+  margin: 0.2em;
+  border-color: var(--PR-light-grey);
+}
+
+#popup-css-text:focus,
+#popup-css-text:active {
+  border-color: var(--PR-dark-grey);
+}
+
+
+@media screen and (max-width: 500px) {
+  .popup-card {
+    font-size: 0.85em;
+    width: 90vw;
+  }
+}

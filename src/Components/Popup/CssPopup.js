@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import './Popup.css';
 import ValueText from './ValueText';
 import CssText from './CssText';
 import {IoClose} from 'react-icons/io5';

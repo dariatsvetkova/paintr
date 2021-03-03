@@ -1,0 +1,40 @@
+:root {
+    --PR-black: #101f1f;
+    --PR-dark-grey: #566161;
+    --PR-light-grey: #afb8b8;
+    --PR-white: #ffffff;
+    --PR-primary-dark: #037989;
+    --PR-primary-light: #2fabbc;
+    --PR-rainbow-logo: linear-gradient(
+      258.62deg,
+      #00829c 4.2%,
+      #4bd8dc 16.81%,
+      #00aec8 30.94%,
+      #d5da00 42.55%,
+      #e9671a 50.62%,
+      #f96868 58.69%,
+      #00aec8 72.32%,
+      #4bd8dc 83.42%,
+      #00829c 94.52%
+    );
+    --PR-rainbow-roller: linear-gradient(
+      266.99deg,
+      #00829c 2.61%,
+      #4bd8dc 17.72%,
+      #00aec8 34.63%,
+      #d5da00 48.52%,
+      #e9671a 58.19%,
+      #f96868 67.85%,
+      #00aec8 84.16%,
+      #4bd8dc 97.45%,
+      #00829c 110.74%
+    );
+    --PR-icon-gradient: linear-gradient(
+        184deg,
+        #415252 8%,
+        #4e5555 31%,
+        #101f1f 66%
+      ),
+      var(--PR-black);
+  }
+  

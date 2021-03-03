@@ -1,0 +1,43 @@
+.palette {
+  border: 0.5px solid var(--PR-light-grey);
+  border-radius: 8px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.palette > * {
+  transition: all 0.3s ease-in-out;
+}
+
+.palette .colour {
+  display: inline-block;
+  margin: 0;
+}
+
+.palette .primary {
+  flex: 0 1 45%;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.palette .accent1 {
+  flex: 1 0 10%;
+}
+
+.palette .accent2 {
+  flex: 0 0 10%;
+}
+
+.palette .white,
+.palette .dark {
+  flex: 0 1 15%;
+}
+
+.palette .dark {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.palette .light {
+  flex: 1 0 5%;
+}

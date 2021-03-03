@@ -1,0 +1,43 @@
+.colour-prompt {
+  cursor: pointer;
+  animation: appear 0.3s ease-in-out 1;
+}
+
+.colour-input {
+  animation: appear 0.3s ease-in-out 1;
+}
+
+.colour-prompt,
+.colour-input div {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.colour-prompt > * {
+  display: inline-block;
+  margin: 0.75em;
+}
+
+.colour-input label {
+  font-size: 0.7em;
+  color: var(--PR-dark-grey);
+}
+
+.input-error,
+.input-error:focus,
+.input-error:active {
+  border-color: #f96868;
+}
+
+.colour-input .label-error {
+  color: #f96868;
+}
+
+
+@media screen and (max-width: 500px) {
+  .colour-input label {
+    font-size: 0.85em;
+  }
+}

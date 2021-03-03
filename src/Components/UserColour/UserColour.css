@@ -1,0 +1,22 @@
+.user-colour {
+  margin-bottom: 1em;
+  border: 1px solid var(--PR-light-grey);
+  border-radius: 8px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.user-colour > * {
+  display: inline-block;
+  margin: 0.75em;
+}
+
+.user-colour .rect,
+.popup-values-line .rect {
+  flex: 0 0 1.5em;
+  height: 1.5em;
+  border: 0.5px solid var(--PR-light-grey);
+}

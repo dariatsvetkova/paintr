@@ -1,4 +1,5 @@
 import React from 'react';
+import './Palette.css';
 
 function Palette(props) {
   const {primary, accent1, accent2, white, light, dark} = props.colourSet;

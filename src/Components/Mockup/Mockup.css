@@ -1,0 +1,372 @@
+.mockup {
+  position: relative;
+  flex: 0 0 80em;
+  border: 1px solid var(--PR-light-grey);
+  font-size: 0.45em;
+}
+
+.mockup > * {
+  transition: all 0.5s ease-in;
+}
+
+.mockup-inactive {
+  background-color: var(--PR-dark-grey);
+}
+
+.mockup .animated-logo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  background-color: var(--PR-white);
+  animation: logo-back 3s linear 1;
+}
+
+@keyframes logo-back {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animated-eraser {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  width: 270px;
+  height: 67.5px;
+  z-index: 2;
+  margin: auto;
+  background-image: url("./stroke.png");
+  background-size: 200% 100%;
+  background-position: 90%;
+  animation: erase 3s ease-in-out 1;
+}
+
+@keyframes erase {
+  10% {
+    background-position: 90%;
+  }
+  55% {
+    background-position: 5%;
+  }
+  95% {
+    background-position: 85%;
+  }
+}
+
+.animated-logo .logo-letters,
+.animated-logo .logo-roller {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  width: 270px;
+  margin: auto;
+}
+
+.animated-logo .logo-letters {
+  z-index: 1;
+}
+
+.animated-logo .logo-letters .roller path {
+  fill: none;
+  stroke: none;
+}
+
+.animated-logo .logo-roller {
+  z-index: 3;
+}
+
+.animated-logo .logo-roller .letters path {
+  fill: none;
+  stroke: none;
+}
+
+.animated-logo .logo-roller .roller {
+  animation: roll 3s ease-in-out 1;
+}
+
+@keyframes roll {
+  10% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(183px);
+  }
+  90% {
+    transform: translateX(0);
+  }
+}
+
+.mockup .navbar {
+  width: 100%;
+  padding: 1em 3em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mockup-inactive .navbar {
+  background-color: var(--PR-white);
+}
+
+.mockup .demo-logo {
+  width: 2.7em;
+  cursor: pointer;
+}
+
+.mockup-inactive .demo-logo {
+  fill: var(--PR-black);
+}
+
+.mockup-inactive .demo-logo path {
+  stroke: var(--PR-white);
+}
+
+.mockup .hamburger {
+  display: none;
+}
+
+.mockup .menu-items {
+  flex: 0 0 60%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+
+.mockup .menu-items li {
+  display: inline-block;
+  padding: 0.5em;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.mockup-inactive .menu-items li:hover,
+.mockup-inactive .menu-items li:focus,
+.mockup-inactive .menu-items li:first-of-type {
+  color: var(--PR-light-grey);
+}
+
+.mockup .header {
+  height: 254px;
+  width: 100%;
+  padding: 3em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.mockup-inactive .header {
+  background-color: var(--PR-light-grey);
+}
+
+.mockup .header .text {
+  flex: 0 0 38em;
+}
+
+.mockup .h1 {
+  font-weight: 800;
+  font-size: 4em;
+  line-height: 136%;
+  margin: 0.25em;
+}
+
+.mockup .subheading {
+  font-size: 1.33em;
+}
+
+.mockup .button {
+  width: 13em;
+  height: 3em;
+  margin: 1em 0;
+  border-radius: 3.2em;
+  border: 2px solid transparent;
+  font-weight: 600;
+  font-size: 1.33em;
+}
+
+.mockup-inactive .button {
+  background-color: var(--PR-dark-grey);
+}
+
+.mockup-inactive .button:hover,
+.mockup-inactive .button:focus {
+  color: var(--PR-light-grey);
+}
+
+.mockup .image {
+  flex: 0 0 22.2em;
+  margin: 3em 5em;
+}
+
+.mockup-inactive .image .line {
+  stroke: var(--PR-black);
+}
+
+.mockup-inactive .image .circle {
+  fill: var(--PR-dark-grey);
+}
+
+.mockup-inactive .image .triangle {
+  fill: #f5f6f6;
+}
+
+.mockup .section {
+  text-align: center;
+  padding: 3em;
+}
+
+.mockup-inactive .section {
+  background: #f5f6f6;
+}
+
+.mockup .h2 {
+  font-weight: 800;
+  font-size: 2.67em;
+  margin: 0.5em;
+}
+
+.mockup .benefits {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.mockup .pillar {
+  height: 20em;
+  margin: 1.75em;
+  padding: 2em;
+}
+
+.mockup-inactive .pillar {
+  background: var(--PR-white);
+  box-shadow: 2px 2px 5px #c0c0c0;
+}
+
+.mockup .pillar .icon {
+  height: 25px;
+}
+
+.mockup-inactive .circle-icon,
+.mockup-inactive .triangle-icon {
+  fill: var(--PR-light-grey);
+  stroke: var(--PR-black);
+}
+
+.mockup-inactive .waves-icon-back {
+  stroke: var(--PR-black);
+}
+
+.mockup-inactive .waves-icon-front-1 {
+  stroke: var(--PR-light-grey);
+}
+
+.mockup-inactive .waves-icon-front-2 {
+  stroke: var(--PR-dark-grey);
+}
+
+.pillar .benefit {
+  font-size: 1.33em;
+  font-weight: 600;
+}
+
+.pillar p {
+  margin: 1.5em 0;
+}
+
+.pillar .a {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pillar p:last-of-type {
+  text-align: left;
+}
+
+
+
+@media screen and (max-width: 1250px) {
+  .mockup {
+    justify-self: flex-start;
+    flex-basis: auto;
+    width: 80em;
+    margin: 0 0.2em 2em 0.2em;
+  }
+
+  @media screen and (max-width: 600px) {
+    .mockup {
+      align-self: stretch;
+    }
+
+    .mockup {
+      width: 100%;
+      height: max-content;
+      font-size: 0.57em;
+    }
+
+    .mockup .animated-logo {
+      align-items: flex-start;
+    }
+
+    .animated-logo .logo-letters,
+    .animated-logo .logo-roller,
+    .animated-eraser {
+      margin-top: 10em;
+      width: 200px;
+    }
+
+    .mockup .menu-items {
+      display: none;
+    }
+
+    .mockup .hamburger {
+      display: inline-block;
+      font-size: 2.5em;
+    }
+
+    .mockup .header {
+      height: max-content;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: center;
+    }
+
+    .mockup .image {
+      order: 1;
+    }
+
+    .mockup .header .text {
+      order: 2;
+      flex-basis: 100%;
+    }
+
+    .mockup .h1 {
+      font-size: 3em;
+    }
+
+    .mockup .h2 {
+      font-size: 2.25em;
+    }
+
+    .mockup .benefits {
+      flex-wrap: wrap;
+    }
+
+    .mockup .pillar {
+      height: auto;
+    }
+  }
+}

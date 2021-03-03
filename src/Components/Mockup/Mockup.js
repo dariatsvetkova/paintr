@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
-import Logo from './Logo';
+import './Mockup.css';
+import Logo from '../Logo';
 import {IoMenu} from 'react-icons/io5';
 
 function Mockup(props) {

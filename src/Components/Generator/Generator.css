@@ -1,0 +1,96 @@
+.generator {
+  padding: 7em 3em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* -- Controls -- */
+
+.controls {
+  flex: 0 0 360px;
+  margin-right: 2.25em;
+  padding: 2em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+  border: 1px solid var(--PR-light-grey);
+  border-radius: 8px;
+}
+
+.controls > * {
+  margin: 1em 0;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 3em;
+}
+
+.controls .large-button {
+  margin-top: 0;
+  width: auto;
+}
+
+.controls .buttons {
+  margin-bottom: 0;
+}
+
+.user-colours {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.user-colours > * {
+  flex-basis: 3em;
+}
+
+.controls .buttons button {
+  width: 40px;
+  height: 40px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons button {
+  font-weight: 600;
+  margin: 0 0.5em;
+  display: inline-block;
+}
+
+
+
+@media screen and (max-width: 1250px) {
+  .generator {
+    flex-flow: column nowrap;
+    justify-content: auto;
+    align-items: center;
+  }
+
+  .controls {
+    flex-basis: min-content;
+    margin: 0 0.2em 2em 0.2em;
+  }
+
+  .controls > * {
+    width: 100%;
+    flex-basis: 3em;
+    margin: 1em 0 0 0;
+  }
+
+  @media screen and (max-width: 700px) {
+    .generator {
+      padding: 5em 2em 3em 2em;
+    }
+
+    @media screen and (max-width: 600px) {
+      .controls {
+        align-self: stretch;
+      }
+    }
+  }
+}

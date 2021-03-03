@@ -1,20 +1,8 @@
 import React from 'react';
-import Header from './Header';
-import HowTo from './HowTo';
-import Generator from './Generator';
-import Footer from './Footer';
+import Layout from './Layout/Layout';
 
 function App() {
-  return (
-    <>
-      <Header />
-      <main>
-        <HowTo />
-        <Generator />
-      </main>
-      <Footer />
-    </>
-  );
+  return (<Layout />);
 }
 
 export default App;

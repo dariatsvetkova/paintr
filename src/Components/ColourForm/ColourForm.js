@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
+import './ColourForm.css';
 import namedColors from 'color-name-list'; // https://github.com/meodai/color-names
 import {IoAdd} from 'react-icons/io5';
-import hexToHsl from './hexToHsl';
+import hexToHsl from '../../Functions/hexToHsl';
 
 function ColoursForm(props) {
   const [input, setInput] = useState('');

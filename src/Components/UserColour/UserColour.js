@@ -1,5 +1,6 @@
 import React from 'react';
-import hslToHex from './hslToHex';
+import './UserColour.css';
+import hslToHex from '../../Functions/hslToHex';
 import {IoRemove} from 'react-icons/io5';
 
 function UserColour(props) {
