@@ -97,7 +97,6 @@ function generate(userColours) {
     // 2. Pick a palette generation method
 
     let Methods = [];
-    let method = '';
 
     // 2a. If the user provided two colours
     // approximate appropriate methods based on their difference in hue:
@@ -119,7 +118,7 @@ function generate(userColours) {
       Methods = ['mono', 'analogue', 'comp', 'split-comp', 'triad', 'square'];
     }
 
-    method = Methods[Math.round(Math.random() * (Methods.length - 1))];
+    const method = Methods[Math.round(Math.random() * (Methods.length - 1))];
 
     // 3. Generate accent colour(s) by shifting h, s, l of the primary colour:
 

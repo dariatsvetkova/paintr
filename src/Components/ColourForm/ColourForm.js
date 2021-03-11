@@ -32,13 +32,13 @@ function ColoursForm(props) {
 
     // If a colour name was provided, replace it with its hex value:
     if (val.match(/^[a-z\s-]+$/i)) {
-      let words = val.split(' ');
-      words = words.map((word) => {
+      const words = val.split(' ');
+      const wordsCap = words.map((word) => {
         return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
       });
-      words = words.join(' ');
+      const inputCap = wordsCap.join(' ');
 
-      const test = namedColors.find((color) => color.name === words);
+      const test = namedColors.find((color) => color.name === inputCap);
       if (test) {
         val = test.hex;
       }

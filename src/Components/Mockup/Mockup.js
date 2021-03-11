@@ -37,8 +37,8 @@ function Mockup(props) {
 
   // Assign colours to menu items
   // based on their contrast with the current background:
-  let menuItems = ['Home', 'About', 'Products', 'Contact'];
-  menuItems = menuItems.map((el, i) => {
+  const menu = ['Home', 'About', 'Products', 'Contact'];
+  const menuItems = menu.map((el, i) => {
     return el === 'Home' ? (
       <li
         key={`menu-${i}`}

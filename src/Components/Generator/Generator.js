@@ -180,19 +180,19 @@ class Generator extends React.Component {
   // "Back" or "Forward" button clicked:
   handleBackForward(id) {
     try {
-      let updSet = sessionStorage.getItem(`colourSet${id}`);
-      updSet = JSON.parse(updSet);
+      const updSet = sessionStorage.getItem(`colourSet${id}`);
+      const updSetJson = JSON.parse(updSet);
 
       return this.setState(
           {
             isLoading: true,
             setId: id,
-            primary: updSet.primary,
-            accent1: updSet.accent1,
-            accent2: updSet.accent2,
-            white: updSet.white,
-            light: updSet.light,
-            dark: updSet.dark,
+            primary: updSetJson.primary,
+            accent1: updSetJson.accent1,
+            accent2: updSetJson.accent2,
+            white: updSetJson.white,
+            light: updSetJson.light,
+            dark: updSetJson.dark,
             shuffleCount: 0,
           },
           () => setTimeout(() => this.setState({isLoading: false}), 3000),
