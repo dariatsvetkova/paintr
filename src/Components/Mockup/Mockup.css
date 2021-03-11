@@ -100,7 +100,7 @@
     transform: translateX(0);
   }
   50% {
-    transform: translateX(183px);
+    transform: translateX(75%);
   }
   90% {
     transform: translateX(0);
