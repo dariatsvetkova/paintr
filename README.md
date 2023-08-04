@@ -1,7 +1,8 @@
 # Paintr
 
-A web app that generates colour schemes for websites, applies them to a demo website, and provides CSS code for your chosen colour scheme.
-Built with React, [Create React App](https://github.com/facebook/create-react-app), [color-name-list](https://github.com/meodai/color-names) library, JavaScript and CSS.
+React app that generates accessible colour schemes for websites, applies them to a demo website and provides CSS code for them. Built with React, [Create React App](https://github.com/facebook/create-react-app), [color-name-list](https://github.com/meodai/color-names) library, JavaScript and CSS.
+
+![home](https://user-images.githubusercontent.com/68360696/120373416-550b4280-c2e6-11eb-9c0a-df8bb047a3be.png)
 
 ## About
 
@@ -40,3 +41,5 @@ All schemes are saved into session storage, allowing users to switch back and fo
 ### Copying the colour scheme
 
 The app provides two ways to copy the chosen colour scheme: by hex value and as CSS code. For simplicity, the CSS styling is applied to common html elements.
+
+![screen-4](https://user-images.githubusercontent.com/68360696/120373538-7704c500-c2e6-11eb-9141-fe6056b3e73a.png)
