@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/dariatsvetkova.github.io/paintr/static/css/main.241ede8d.css",
-    "main.js": "/dariatsvetkova.github.io/paintr/static/js/main.0ca977fb.js",
+    "main.js": "/dariatsvetkova.github.io/paintr/static/js/main.d0e3ac1e.js",
     "static/js/377.a6deb945.chunk.js": "/dariatsvetkova.github.io/paintr/static/js/377.a6deb945.chunk.js",
-    "static/media/background.svg": "/dariatsvetkova.github.io/paintr/static/media/background.4963c7f54cd7f29e0f1b865cf5347617.svg",
+    "static/media/background.svg": "/dariatsvetkova.github.io/paintr/static/media/background.0dd16969b2a837ee23762158dc646271.svg",
     "index.html": "/dariatsvetkova.github.io/paintr/index.html",
     "main.241ede8d.css.map": "/dariatsvetkova.github.io/paintr/static/css/main.241ede8d.css.map",
-    "main.0ca977fb.js.map": "/dariatsvetkova.github.io/paintr/static/js/main.0ca977fb.js.map",
+    "main.d0e3ac1e.js.map": "/dariatsvetkova.github.io/paintr/static/js/main.d0e3ac1e.js.map",
     "377.a6deb945.chunk.js.map": "/dariatsvetkova.github.io/paintr/static/js/377.a6deb945.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.241ede8d.css",
-    "static/js/main.0ca977fb.js"
+    "static/js/main.d0e3ac1e.js"
   ]
 }
